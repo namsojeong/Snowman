@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Player : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        
+        transform.position = new Vector3(0, 0, 0);
     }
 
     [SerializeField ]
