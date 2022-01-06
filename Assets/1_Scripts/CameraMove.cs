@@ -5,18 +5,26 @@ using DG.Tweening;
 
 public class CameraMove : MonoBehaviour
 {
-    [SerializeField]
-    GameObject playerT;
+    public Transform target; //타겟 위치
 
-    const int zPos = -10;
+    public float smoothSpeed = 3; //이동속도
+    public Vector2 offset;
+    float limitMinX=-27.8f, limitMaxX = 27.8f, limitMinY = -12.5f, limitMaxY = 12.5f; //영역
+    float cameraHalfWidth, cameraHalfHeight;
 
-    private void Update()
+    private void Start()
     {
-        CameraMoving();
+        cameraHalfWidth = Camera.main.aspect * Camera.main.orthographicSize;
+        cameraHalfHeight = Camera.main.orthographicSize;
     }
-    private void CameraMoving()
-    {
 
-        Camera.main.transform.DOMove(new Vector3(playerT.transform.position.x, playerT.transform.position.y, zPos), 1f);
+    private void LateUpdate()
+    {
+        Vector3 desiredPosition = new Vector3(
+            Mathf.Clamp(target.position.x + offset.x, limitMinX + cameraHalfWidth, limitMaxX - cameraHalfWidth),   // X
+            Mathf.Clamp(target.position.y + offset.y, limitMinY + cameraHalfHeight, limitMaxY - cameraHalfHeight), // Y
+            -10);                                                                                                  // Z
+        transform.position = Vector3.Lerp(transform.position, desiredPosition, Time.deltaTime * smoothSpeed);
     }
+
 }
