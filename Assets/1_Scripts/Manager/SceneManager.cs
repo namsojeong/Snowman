@@ -16,7 +16,7 @@ public class SceneManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        OpenScene(1);
+        OpenScene(0);
     }
 
     public void OpenScene(int num)
