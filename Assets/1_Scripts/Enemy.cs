@@ -7,11 +7,30 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField]
     Transform playerTransform;
+
+    Coroutine TimeC;
+
+    bool isMoving = true;
+    private void Start()
+    {
+        TimeC=StartCoroutine(TimeCheck());
+        
+    }
     private void Update()
     {
-        //플레이어 쫓아다니기
-        transform.position = Vector3.Slerp(transform.position, playerTransform.position, 0.03f);
-
+        Move();
     }
-
+    private void Move()
+    {
+        if (!isMoving) return;
+        //플레이어 쫓아다니기
+        isMoving = true;
+        transform.position = Vector3.Slerp(transform.position, playerTransform.position, 0.03f);
+    }
+    IEnumerator TimeCheck()
+    {
+        yield return new WaitForSeconds(5f);
+        isMoving = false;
+        StopCoroutine(TimeC);
+    }
 }
