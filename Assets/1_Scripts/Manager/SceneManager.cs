@@ -16,18 +16,18 @@ public class SceneManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        OpenScene(0);
+        OpenScene(1);
     }
 
     public void OpenScene(int num)
     {
-        for(int i=0;i<scenePanel.Length;i++)
+        for (int i = 0; i < 3; i++)
         {
             scenePanel[i].SetActive(false);
             sceneObj[i].SetActive(false);
         }
         scenePanel[num].SetActive(true);
-            sceneObj[num].SetActive(false);
+        sceneObj[num].SetActive(true);
     }
 
 }
