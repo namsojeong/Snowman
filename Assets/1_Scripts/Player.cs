@@ -9,17 +9,28 @@ public class Player : MonoBehaviour
     [SerializeField]
     private VirtualJoystick virtualJoystick;
 
+    public GameObject bulletObj;
+    
+    [SerializeField]
+    float bulletSpeed = 1;
+
+    int snowball = 0;
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
+
+       // GetComponent<Rigidbody>().AddForce(transform.forward * bulletSpeed, ForceMode.Impulse);
+        
     }
 
     [SerializeField ]
     private float movespeed = 12f;
 
+
     private void Update()
     {
         Move();
+     //   Fire();
     }
 
     void Move()
@@ -36,14 +47,26 @@ public class Player : MonoBehaviour
         transform.position = worldPos;
         float x = virtualJoystick.Horizontal();
         float y = virtualJoystick.Vertical();
-        if (x != 0 || y != 0)
+        if (x != 0 || y != 0 )
         {
             transform.position += new Vector3(x, y, 0) * movespeed * Time.deltaTime;
+            if(transform.localScale.x <= 1.5f)
+            {
+               transform.localScale += new Vector3(0.001f, 0.001f);
+            }
             
         }
-
-        
-
-
     }
+
+    public void OnClickFIre()
+    {
+        transform.localScale -= new Vector3(0.003f, 0.003f);
+    }
+
+    //void Fire()
+    //{
+    //    Instantiate(bulleObj, transform.position, transform.rotation);
+    //    Destroy(gameObject, 5);
+    //}
+
 }
