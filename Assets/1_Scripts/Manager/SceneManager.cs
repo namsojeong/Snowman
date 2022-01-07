@@ -9,10 +9,14 @@ public class SceneManager : MonoBehaviour
 
     [SerializeField]
     GameObject[] scenePanel;
+    
+    [SerializeField]
+    GameObject[] sceneObj;
 
     private void Awake()
     {
         Instance = this;
+        OpenScene(0);
     }
 
     public void OpenScene(int num)
@@ -20,8 +24,10 @@ public class SceneManager : MonoBehaviour
         for(int i=0;i<scenePanel.Length;i++)
         {
             scenePanel[i].SetActive(false);
+            sceneObj[i].SetActive(false);
         }
         scenePanel[num].SetActive(true);
+            sceneObj[num].SetActive(false);
     }
 
 }
