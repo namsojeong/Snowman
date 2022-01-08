@@ -7,7 +7,8 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField]
     Transform playerTransform;
-    
+    [SerializeField]
+    Animator koong;
 
     Coroutine TimeC;
 
@@ -34,6 +35,7 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(5f);
         isMoving = false;
         Camera.main.DOShakePosition(0.8f);
+        koong.Play("Anim");
         StopCoroutine(TimeC);
     }
 }
