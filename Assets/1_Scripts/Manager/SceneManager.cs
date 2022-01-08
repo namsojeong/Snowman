@@ -19,6 +19,7 @@ public class SceneManager : MonoBehaviour
         OpenScene(0);
     }
 
+    //씬 바꾸기 함수
     public void OpenScene(int num)
     {
         for (int i = 0; i < 3; i++)

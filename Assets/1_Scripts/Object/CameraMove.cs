@@ -20,6 +20,12 @@ public class CameraMove : MonoBehaviour
 
     private void LateUpdate()
     {
+        CameraMoving();
+    }
+
+    //플레이어 쫓아가기
+    void CameraMoving()
+    {
         Vector3 desiredPosition = new Vector3(
             Mathf.Clamp(target.position.x + offset.x, limitMinX + cameraHalfWidth, limitMaxX - cameraHalfWidth),   // X
             Mathf.Clamp(target.position.y + offset.y, limitMinY + cameraHalfHeight, limitMaxY - cameraHalfHeight), // Y

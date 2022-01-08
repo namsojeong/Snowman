@@ -4,6 +4,6 @@ using UnityEngine;
 
 public enum PoolObjectType
 {
-    BULLET,
+    BULLET, //´« ÃÑ¾Ë
 
 }

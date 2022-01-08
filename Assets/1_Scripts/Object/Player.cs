@@ -8,34 +8,32 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private VirtualJoystick virtualJoystick;
-
-    public GameObject bulletObj;
-    
+    [SerializeField]
+    private float movespeed = 12f;
     [SerializeField]
     float bulletSpeed = 1;
 
+    public GameObject bulletObj;
+
     int snowball = 0;
+
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
 
-       // GetComponent<Rigidbody>().AddForce(transform.forward * bulletSpeed, ForceMode.Impulse);
-        
+        // GetComponent<Rigidbody>().AddForce(transform.forward * bulletSpeed, ForceMode.Impulse);
+
     }
-
-    [SerializeField ]
-    private float movespeed = 12f;
-
 
     private void Update()
     {
         Move();
-     //   Fire();
+        //Fire();
     }
 
+    //조이스틱 움직임
     void Move()
     {
-        //조이스틱
         Vector3 viewPos = Camera.main.WorldToViewportPoint(transform.position);
         viewPos.x = Mathf.Clamp01(viewPos.x);
         viewPos.y = Mathf.Clamp01(viewPos.y);
@@ -47,17 +45,18 @@ public class Player : MonoBehaviour
         transform.position = worldPos;
         float x = virtualJoystick.Horizontal();
         float y = virtualJoystick.Vertical();
-        if (x != 0 || y != 0 )
+        if (x != 0 || y != 0)
         {
             transform.position += new Vector3(x, y, 0) * movespeed * Time.deltaTime;
-            if(transform.localScale.x <= 1.5f)
+            if (transform.localScale.x <= 1.5f)
             {
-               transform.localScale += new Vector3(0.001f, 0.001f);
+                transform.localScale += new Vector3(0.001f, 0.001f);
             }
-            
+
         }
     }
 
+    //발사버튼
     public void OnClickFIre()
     {
         transform.localScale -= new Vector3(0.003f, 0.003f);
