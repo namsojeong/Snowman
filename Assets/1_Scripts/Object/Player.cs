@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private VirtualJoystick virtualJoystick;
     [SerializeField]
-    private float movespeed = 12f;
+    private float movespeed = 8f; //플레이어 스피드
     [SerializeField]
     float bulletSpeed = 1;
 
@@ -22,7 +22,6 @@ public class Player : MonoBehaviour
         transform.position = new Vector3(0, 0, 0);
 
         // GetComponent<Rigidbody>().AddForce(transform.forward * bulletSpeed, ForceMode.Impulse);
-
     }
 
     private void Update()
@@ -68,4 +67,12 @@ public class Player : MonoBehaviour
     //    Destroy(gameObject, 5);
     //}
 
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.transform.tag=="FOOT")
+        {
+                SceneManager.Instance.OpenScene(2);
+        }
+    }
 }
