@@ -19,6 +19,30 @@ public class UI : MonoBehaviour
     }
 
 
+    public void OpenObj(GameObject obj)
+    {
+        obj.SetActive(true);
+    }
+    public void CloseObj(GameObject obj)
+    {
+        obj.SetActive(false);
+    }
+    public void OnclickOption()
+    {
+        Time.timeScale = 0;
+    }
+
+    public void OnclickResume()
+    {
+        Time.timeScale = 1;
+    }
+
+    public void OnClickRoby()
+    {
+
+    }
+
+   
     private void Start()
     {
         InvokeRepeating("ScoreUp", 1f, 1f);
