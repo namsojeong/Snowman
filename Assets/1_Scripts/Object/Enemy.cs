@@ -17,7 +17,7 @@ public class Enemy : MonoBehaviour
     Coroutine TimeC;
 
     bool isMoving = true; //움직이는 중인가
-    
+    bool isDamage = false; //플레이가 데미지 받는지 아닌지
     int spriteNum = 0; //빨간지 안빨간지
 
     private void Start()
@@ -52,12 +52,13 @@ public class Enemy : MonoBehaviour
     {
         StopCoroutine(TimeC);
         isMoving = false;
+      
         foot.transform.DOScale(new Vector3(1f, 1f, 1f), 1f).OnComplete(()=>
         {
+            isDamage = true;      
             Camera.main.DOShakePosition(0.8f);
             koong.Play("Anim");
             InvokeRepeating("KoongSprite", 0f, 2f);
-            
         });
         
     }
@@ -65,6 +66,7 @@ public class Enemy : MonoBehaviour
     //쿵 했을 때 빨개지기
     void KoongSprite()
     {
+        isDamage = isDamage ? false : true;
         if (spriteNum == 0)
         {
             footSpriteRenderer.color = Color.red;
@@ -75,6 +77,19 @@ public class Enemy : MonoBehaviour
             footSpriteRenderer.color = Color.grey;
             spriteNum = 0;
             CancelInvoke("KoongSprite");
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.tag == "Player")
+        {
+            if(!isDamage)
+            {
+                return;
+            }
+            SceneManager.Instance.OpenScene(2);
+            
         }
     }
 }
