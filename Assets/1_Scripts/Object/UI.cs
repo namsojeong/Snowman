@@ -15,18 +15,24 @@ public class UI : MonoBehaviour
     private int highScore;
     void Awake()
     {
-    }
         
+    }
 
-    void Update()
+
+    private void Start()
     {
-        score += 1;
+        InvokeRepeating("ScoreUp", 1f, 1f);
+    }
+    void ScoreUp()
+    {
+        score ++;
         if (score > highScore)
         {
             highScore = score;
-            PlayerPrefs.SetInt("SCORE", score);
+            PlayerPrefs.SetInt("SCORE", highScore);
+
         }
-        highScore = PlayerPrefs.GetInt("SCORE", 500);
+        highScore = PlayerPrefs.GetInt("SCORE", 0);
         UpdateUI();
     }
 

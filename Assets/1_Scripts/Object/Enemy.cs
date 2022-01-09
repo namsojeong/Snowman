@@ -10,9 +10,8 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     Animator koong;
     [SerializeField]
-    SpriteRenderer footSpriteRenderer;
-    [SerializeField]
-    GameObject foot;
+    SpriteRenderer spriteRenderer;
+    Collider2D collider;
 
     Coroutine TimeC;
 
@@ -22,8 +21,9 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        foot.SetActive(false);
+        collider = GetComponent<Collider2D>();
         TimeC = StartCoroutine(TimeCheck());
+
     }
     private void Update()
     {
@@ -35,15 +35,15 @@ public class Enemy : MonoBehaviour
     {
         if (!isMoving) return;
         //플레이어 쫓아다니기
+        collider.isTrigger = true;
         isMoving = true;
-        transform.position = Vector3.Slerp(transform.position, playerTransform.position, 0.001f); //0.005f가 플레이어 위치로 가는 속도
+        transform.position = Vector3.Slerp(transform.position, playerTransform.position, 0.004f); //0.005f가 플레이어 위치로 가는 속도
     }
 
     //고정되기 까지 시간
     IEnumerator TimeCheck()
     {
         yield return new WaitForSeconds(5f);
-        foot.SetActive(true);
         Koong();
     }
 
@@ -52,44 +52,61 @@ public class Enemy : MonoBehaviour
     {
         StopCoroutine(TimeC);
         isMoving = false;
-      
-        foot.transform.DOScale(new Vector3(1f, 1f, 1f), 1f).OnComplete(()=>
+
+        gameObject.transform.localScale = new Vector3(4f, 4f, 4f);
+        gameObject.transform.DOScale(new Vector3(2f, 2f, 2f), 1f)
+            .OnComplete(() =>
         {
-            isDamage = true;      
+            isDamage = true;
             Camera.main.DOShakePosition(0.8f);
             koong.Play("Anim");
-            InvokeRepeating("KoongSprite", 0f, 2f);
+            InvokeRepeating("KoongSprite", 0f, 1f);
         });
-        
+
     }
 
     //쿵 했을 때 빨개지기
     void KoongSprite()
     {
-        isDamage = isDamage ? false : true;
         if (spriteNum == 0)
         {
-            footSpriteRenderer.color = Color.red;
+            isDamage = true;
+            spriteRenderer.color = Color.red;
             spriteNum = 1;
         }
         else
         {
-            footSpriteRenderer.color = Color.grey;
+            isDamage = false;
+            spriteRenderer.color = Color.grey;
             spriteNum = 0;
+            collider.isTrigger = false;
             CancelInvoke("KoongSprite");
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.transform.tag == "Player")
         {
-            if(!isDamage)
+            if (!isDamage)
             {
                 return;
             }
             SceneManager.Instance.OpenScene(2);
-            
+
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.tag == "Player")
+        {
+            if (!isDamage)
+            {
+                return;
+            }
+            SceneManager.Instance.OpenScene(2);
+
         }
     }
 }
