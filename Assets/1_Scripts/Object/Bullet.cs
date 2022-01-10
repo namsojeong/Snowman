@@ -7,23 +7,21 @@ public class Bullet : MonoBehaviour
 {
     bool isDir = false;
 
-    Vector3 dir;
+    Vector2 dir=Vector2.zero;
 
     private void Update()
     {
         if(!isDir)
         {
             dir = InGame.Instance.targetBullet;
-            dir.z = 0f;
+            Debug.Log(dir);
             isDir = true;
-            BulletMove();
         }
+            BulletMove();
     }
     private void BulletMove()
     {
-        Debug.Log("ÀÀ");
-        transform.DOMove(dir, 2f)
-            .OnComplete(()=>ObjectPool.Instance.ReturnObject(PoolObjectType.BULLET, gameObject));
+        transform.Translate(dir * 2f*Time.deltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
