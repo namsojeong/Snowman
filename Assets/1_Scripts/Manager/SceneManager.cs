@@ -13,6 +13,8 @@ public class SceneManager : MonoBehaviour
     [SerializeField]
     GameObject[] sceneObj;
 
+    public bool isRunning=false;
+
     private void Awake()
     {
         Instance = this;
@@ -22,6 +24,7 @@ public class SceneManager : MonoBehaviour
     //씬 바꾸기 함수
     public void OpenScene(int num)
     {
+        isRunning = num == 1 ? true : false;
         for (int i = 0; i < 3; i++)
         {
             scenePanel[i].SetActive(false);

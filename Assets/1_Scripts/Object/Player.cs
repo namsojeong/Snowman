@@ -12,13 +12,13 @@ public class Player : MonoBehaviour
 
     public GameObject bulletObj;
 
-    float snowball = 0f;
+    
 
-    Vector3 bulletDir;
+    Vector3 bulletDir=Vector3.zero;
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
-        UI.Instance.UpdateSlider(snowball);
+        UI.Instance.UpdateSlider(InGame.Instance.snowball);
     }
 
     private void Update()
@@ -40,15 +40,15 @@ public class Player : MonoBehaviour
         transform.position = worldPos;
         float x = virtualJoystick.Horizontal();
         float y = virtualJoystick.Vertical();
-        InGame.Instance.dir = new Vector3(x, y, 0f);
         if (x != 0 || y != 0)
         {
             transform.position += new Vector3(x, y, 0) * movespeed * Time.deltaTime;
+            bulletDir = transform.position + new Vector3(x *1.2f, y * 1.2f, 0);
             if (transform.localScale.x <= 1.5f)
             {
                 transform.localScale += new Vector3(0.001f, 0.001f);
-                snowball += 0.001f;
-                UI.Instance.UpdateSlider(snowball);
+                InGame.Instance.snowball += 0.001f;
+                UI.Instance.UpdateSlider(InGame.Instance.snowball);
             }
 
         }
@@ -58,11 +58,13 @@ public class Player : MonoBehaviour
     public void OnClickFIre()
     {
         if (transform.localScale.x <= 0.6f) return;
+
         GameObject bullet=ObjectPool.Instance.GetObject(PoolObjectType.BULLET);
-        bullet.transform.position = transform.position + bulletDir;
+        bullet.transform.position = bulletDir;
+        InGame.Instance.targetBullet = bulletDir * 5f;
         transform.localScale -= new Vector3(0.012f, 0.012f);
-        snowball -= 0.012f;
-        UI.Instance.UpdateSlider(snowball);
+        InGame.Instance.snowball -= 0.012f;
+        UI.Instance.UpdateSlider(InGame.Instance.snowball);
 
     }
 

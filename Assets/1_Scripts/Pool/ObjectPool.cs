@@ -22,6 +22,7 @@ public class ObjectPool : MonoBehaviour
 
     private void Initialize()
     {
+        poolObjectMap.Clear();
         for (int i = 0; i < objectPoolData.prefabs.Count; i++)
         {
             poolObjectMap.Add((PoolObjectType)i, new Queue<GameObject>());
@@ -62,16 +63,16 @@ public class ObjectPool : MonoBehaviour
     //오브젝트 리턴
     public void ReturnObject(PoolObjectType type, GameObject obj)
     {
-        switch (obj.tag)
-        {
-            case "Coin":
-                if (obj.transform.parent == gameObject.transform)
-                    return;
-                break;
-        }
-
         obj.gameObject.SetActive(false);
         obj.transform.SetParent(Instance.transform);
         Instance.poolObjectMap[type].Enqueue(obj);
+    }
+    public void ResetObj()
+    {
+        for (int i = 1; i < Instance.transform.childCount; i++)
+        {
+            Destroy(Instance.transform.GetChild(i).gameObject);
+        }
+        Initialize();
     }
 }

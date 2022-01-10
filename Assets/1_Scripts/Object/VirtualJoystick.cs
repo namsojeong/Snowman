@@ -10,12 +10,8 @@ public class VirtualJoystick : MonoBehaviour, IPointerDownHandler, IDragHandler,
     private Image JoyIn;
     private Vector2 touchPosition;
 
-    private RectTransform lever;
-    private RectTransform rectTransform;
-
     private void Awake()
     {
-        rectTransform = GetComponent<RectTransform>();
         JoyOut = GetComponent<Image>();
         JoyIn = transform.GetChild(0).GetComponent<Image>();
     }

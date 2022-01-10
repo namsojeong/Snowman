@@ -22,10 +22,12 @@ public class Enemy : MonoBehaviour
     {
         collider = GetComponent<Collider2D>();
         TimeC = StartCoroutine(TimeCheck());
-
+        collider.enabled = false;
     }
+
     private void Update()
     {
+
         Move();
     }
 
@@ -36,7 +38,7 @@ public class Enemy : MonoBehaviour
         //플레이어 쫓아다니기
         collider.enabled = false;
         isMoving = true;
-        transform.position = Vector3.Slerp(transform.position, InGame.Instance.playerTransform.position, 0.004f); //0.005f가 플레이어 위치로 가는 속도
+        transform.position = Vector3.Slerp(transform.position, InGame.Instance.player.transform.position, 0.004f); //0.005f가 플레이어 위치로 가는 속도
     }
 
     //고정되기 까지 시간
@@ -92,8 +94,8 @@ public class Enemy : MonoBehaviour
             {
                 return;
             }
+            InGame.Instance.Reset();
             SceneManager.Instance.OpenScene(2);
-
         }
     }
 

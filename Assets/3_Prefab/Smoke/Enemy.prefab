@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4988728211912781234}
   - component: {fileID: 4988728211912781233}
   - component: {fileID: 4988728211912781232}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FX001_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,8 +113,8 @@ GameObject:
   - component: {fileID: 6806256147992030140}
   - component: {fileID: 6806256147992030139}
   - component: {fileID: 6806256147992030138}
-  - component: {fileID: 8267547249512847739}
-  m_Layer: 0
+  - component: {fileID: 2638360102173141551}
+  m_Layer: 7
   m_Name: Enemy
   m_TagString: FOOT
   m_Icon: {fileID: 0}
@@ -176,7 +176,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e0178d63decfe1b4abcd2b9f6b702163, type: 3}
   m_Color: {r: 0.01886791, g: 0.011463145, b: 0.011463145, a: 0.53333336}
   m_FlipX: 0
   m_FlipY: 0
@@ -201,7 +201,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   koong: {fileID: 4988728211912781232}
   spriteRenderer: {fileID: 6806256147992030139}
---- !u!60 &8267547249512847739
+--- !u!60 &2638360102173141551
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -218,7 +218,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 3, y: 3}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -226,7 +226,27 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.5, y: 0.5}
-      - {x: -0.5, y: -0.5}
-      - {x: 0.5, y: -0.5}
-      - {x: 0.5, y: 0.5}
+    - - {x: 0.089999996, y: -0.17999999}
+      - {x: -0.32999998, y: -0.17999999}
+      - {x: -0.37, y: -0.21}
+      - {x: -0.37, y: -0.47}
+      - {x: -0.35999998, y: -0.5}
+      - {x: -0.19, y: -0.62}
+      - {x: 0.08, y: -0.62}
+      - {x: 0.16, y: -0.39999998}
+      - {x: 0.16, y: -0.19999999}
+      - {x: 0.14999999, y: -0.19}
+    - - {x: 0.25, y: 0.48999998}
+      - {x: 0.21, y: 0.66999996}
+      - {x: 0.14999999, y: 0.81}
+      - {x: 0.03, y: 0.91999996}
+      - {x: -0.22, y: 0.91999996}
+      - {x: -0.32999998, y: 0.9}
+      - {x: -0.38, y: 0.81}
+      - {x: -0.44, y: 0.63}
+      - {x: -0.44, y: 0.39}
+      - {x: -0.35, y: -0.08}
+      - {x: -0.31, y: -0.12}
+      - {x: 0.13, y: -0.12}
+      - {x: 0.17, y: -0.07}
+      - {x: 0.25, y: 0.19}
