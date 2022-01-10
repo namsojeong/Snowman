@@ -15,12 +15,13 @@ public class Player : MonoBehaviour
 
     public GameObject bulletObj;
 
-    int snowball = 0;
+    float snowball = 0f;
+
 
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
-
+        UI.Instance.UpdateSlider(snowball);
         // GetComponent<Rigidbody>().AddForce(transform.forward * bulletSpeed, ForceMode.Impulse);
     }
 
@@ -50,6 +51,8 @@ public class Player : MonoBehaviour
             if (transform.localScale.x <= 1.5f)
             {
                 transform.localScale += new Vector3(0.001f, 0.001f);
+                snowball += 0.001f;
+                UI.Instance.UpdateSlider(snowball);
             }
 
         }
@@ -58,7 +61,11 @@ public class Player : MonoBehaviour
     //발사버튼
     public void OnClickFIre()
     {
-        transform.localScale -= new Vector3(0.003f, 0.003f);
+        if (transform.localScale.x <= 0.6f)
+            return;
+            transform.localScale -= new Vector3(0.012f, 0.012f);
+        snowball -= 0.012f;
+        UI.Instance.UpdateSlider(snowball);
     }
 
     //void Fire()

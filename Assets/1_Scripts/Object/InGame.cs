@@ -1,17 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class InGame : MonoBehaviour
 {
     public static InGame Instance;
-    
+
     public Transform playerTransform;
+
 
     private void Awake()
     {
         Instance = this;
     }
+
 
     public void SpawnFoot()
     {

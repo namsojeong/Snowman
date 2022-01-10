@@ -5,20 +5,47 @@ using UnityEngine.UI;
 
 public class UI : MonoBehaviour
 {
+    public static UI Instance;
+
     [SerializeField]
     Text scoreText = null;
 
     [SerializeField]
     Text highScoreText = null;
 
+    [SerializeField]
+    Slider snowbar;
+
+    public float maxsnow;
+    private float minsnow;
     private int score;
     private int highScore;
 
+
+    private void Awake()
+    {
+        Instance = this;
+    }
     private void Start()
     {
         InvokeRepeating("ScoreUp", 1f, 1f);
+        minsnow = 1 / maxsnow;
+
     }
 
+    public void UpdateSlider(float value)
+    {
+        if (value >= 1)
+        {
+            value = 1;
+        }
+        if (value <= 0)
+        {
+            value = 0;
+        }
+        snowbar.value = value;
+
+    }
     public void OpenObj(GameObject obj)
     {
         obj.SetActive(true);
@@ -37,10 +64,10 @@ public class UI : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    
+
     void ScoreUp()
     {
-        score ++;
+        score++;
         if (score > highScore)
         {
             highScore = score;
@@ -63,7 +90,7 @@ public class UI : MonoBehaviour
         if (score > highScore)
         {
             highScore = score;
-            PlayerPrefs.SetInt( "HIGHSCORE", score);
+            PlayerPrefs.SetInt("HIGHSCORE", score);
         }
         UpdateUI();
     }
