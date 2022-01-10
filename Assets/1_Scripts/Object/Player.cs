@@ -8,27 +8,22 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private VirtualJoystick virtualJoystick;
-    [SerializeField]
     private float movespeed = 8f; //플레이어 스피드
-    [SerializeField]
-    float bulletSpeed = 1;
 
     public GameObject bulletObj;
 
     float snowball = 0f;
 
-
+    Vector3 bulletDir;
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
         UI.Instance.UpdateSlider(snowball);
-        // GetComponent<Rigidbody>().AddForce(transform.forward * bulletSpeed, ForceMode.Impulse);
     }
 
     private void Update()
     {
         Move();
-        //Fire();
     }
 
     //조이스틱 움직임
@@ -45,6 +40,7 @@ public class Player : MonoBehaviour
         transform.position = worldPos;
         float x = virtualJoystick.Horizontal();
         float y = virtualJoystick.Vertical();
+        InGame.Instance.dir = new Vector3(x, y, 0f);
         if (x != 0 || y != 0)
         {
             transform.position += new Vector3(x, y, 0) * movespeed * Time.deltaTime;
@@ -61,19 +57,13 @@ public class Player : MonoBehaviour
     //발사버튼
     public void OnClickFIre()
     {
-        if (transform.localScale.x <= 0.6f)
-            return;
-            transform.localScale -= new Vector3(0.012f, 0.012f);
+        if (transform.localScale.x <= 0.6f) return;
+        GameObject bullet=ObjectPool.Instance.GetObject(PoolObjectType.BULLET);
+        bullet.transform.position = transform.position + bulletDir;
+        transform.localScale -= new Vector3(0.012f, 0.012f);
         snowball -= 0.012f;
         UI.Instance.UpdateSlider(snowball);
+
     }
 
-    //void Fire()
-    //{
-    //    Instantiate(bulleObj, transform.position, transform.rotation);
-    //    Destroy(gameObject, 5);
-    //}
-
-
-  
 }

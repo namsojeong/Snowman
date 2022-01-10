@@ -113,7 +113,7 @@ GameObject:
   - component: {fileID: 6806256147992030140}
   - component: {fileID: 6806256147992030139}
   - component: {fileID: 6806256147992030138}
-  - component: {fileID: 6806256147992030141}
+  - component: {fileID: 8267547249512847739}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: FOOT
@@ -201,8 +201,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   koong: {fileID: 4988728211912781232}
   spriteRenderer: {fileID: 6806256147992030139}
---- !u!61 &6806256147992030141
-BoxCollider2D:
+--- !u!60 &8267547249512847739
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -211,7 +211,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -224,6 +224,9 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.5, y: 0.5}
+      - {x: -0.5, y: -0.5}
+      - {x: 0.5, y: -0.5}
+      - {x: 0.5, y: 0.5}

@@ -9,8 +9,13 @@ public class VirtualJoystick : MonoBehaviour, IPointerDownHandler, IDragHandler,
     private Image JoyOut;
     private Image JoyIn;
     private Vector2 touchPosition;
+
+    private RectTransform lever;
+    private RectTransform rectTransform;
+
     private void Awake()
     {
+        rectTransform = GetComponent<RectTransform>();
         JoyOut = GetComponent<Image>();
         JoyIn = transform.GetChild(0).GetComponent<Image>();
     }
@@ -22,7 +27,6 @@ public class VirtualJoystick : MonoBehaviour, IPointerDownHandler, IDragHandler,
             touchPosition.x = (touchPosition.x / JoyOut.rectTransform.sizeDelta.x);
             touchPosition.y = (touchPosition.y / JoyOut.rectTransform.sizeDelta.y);
             touchPosition = new Vector2(touchPosition.x * 2 - 1, touchPosition.y * 2 - 1);
-
             touchPosition = (touchPosition.magnitude > 1) ? touchPosition.normalized : touchPosition;
 
             JoyIn.rectTransform.anchoredPosition = new Vector2(touchPosition.x * JoyOut.rectTransform.sizeDelta.x / 2, touchPosition.y * JoyOut.rectTransform.sizeDelta.y / 2);

@@ -8,6 +8,7 @@ public class InGame : MonoBehaviour
 
     public Transform playerTransform;
 
+    public Vector3 dir;
 
     private void Awake()
     {

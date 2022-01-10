@@ -368,7 +368,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &314225647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -382,8 +382,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   virtualJoystick: {fileID: 969750001}
-  movespeed: 12
-  bulletSpeed: 1
   bulletObj: {fileID: 3145107656986939415, guid: de34dd601a3e6704f84472b48aa4bde2, type: 3}
 --- !u!212 &314225648
 SpriteRenderer:
@@ -959,7 +957,7 @@ GameObject:
   - component: {fileID: 969749999}
   - component: {fileID: 969750001}
   m_Layer: 3
-  m_Name: BackGroundButton
+  m_Name: JoyStick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1462,6 +1460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 314225649}
+  dir: {x: 0, y: 0, z: 0}
 --- !u!1 &1300461316
 GameObject:
   m_ObjectHideFlags: 0
@@ -3046,5 +3045,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8267547249512847739, guid: 16e803d1f0e347440945769199bfb5ab, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6806256147992030141, guid: 16e803d1f0e347440945769199bfb5ab, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 16e803d1f0e347440945769199bfb5ab, type: 3}

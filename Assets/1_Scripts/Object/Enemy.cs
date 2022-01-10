@@ -5,7 +5,7 @@ using DG.Tweening;
 
 public class Enemy : MonoBehaviour
 {
-    
+
     [SerializeField]
     Animator koong;
     [SerializeField]
@@ -34,7 +34,7 @@ public class Enemy : MonoBehaviour
     {
         if (!isMoving) return;
         //플레이어 쫓아다니기
-        collider.isTrigger = true;
+        collider.enabled = false;
         isMoving = true;
         transform.position = Vector3.Slerp(transform.position, InGame.Instance.playerTransform.position, 0.004f); //0.005f가 플레이어 위치로 가는 속도
     }
@@ -54,9 +54,8 @@ public class Enemy : MonoBehaviour
 
         gameObject.transform.localScale = new Vector3(4f, 4f, 4f);
         gameObject.transform.DOScale(new Vector3(2f, 2f, 2f), 1f)
-            .OnComplete(() =>
+        .OnComplete(() =>
         {
-            isDamage = true;
             Camera.main.DOShakePosition(0.8f);
             koong.Play("Anim");
             InvokeRepeating("KoongSprite", 0f, 1f);
@@ -69,24 +68,23 @@ public class Enemy : MonoBehaviour
     {
         if (spriteNum == 0)
         {
+            collider.enabled = true;
             isDamage = true;
             spriteRenderer.color = Color.red;
             spriteNum = 1;
         }
         else
         {
-            isDamage = false;
             spriteRenderer.color = Color.grey;
-            spriteNum = 0;
             collider.isTrigger = false;
+            spriteNum = 0;
             InGame.Instance.SpawnFoot();
-            
             CancelInvoke("KoongSprite");
+            isDamage = false;
         }
     }
 
-    
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.transform.tag == "Player")
         {
@@ -98,16 +96,5 @@ public class Enemy : MonoBehaviour
 
         }
     }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.transform.tag == "Player")
-        {
-            if (!isDamage)
-            {
-                return;
-            }
-            SceneManager.Instance.OpenScene(2);
 
-        }
-    }
 }

@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - FOOT
+  - BULLET
   layers:
   - Default
   - TransparentFX
