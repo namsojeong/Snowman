@@ -13,11 +13,11 @@ public class UI : MonoBehaviour
 
     private int score;
     private int highScore;
-    void Awake()
-    {
-        
-    }
 
+    private void Start()
+    {
+        InvokeRepeating("ScoreUp", 1f, 1f);
+    }
 
     public void OpenObj(GameObject obj)
     {
@@ -37,16 +37,7 @@ public class UI : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    public void OnClickRoby()
-    {
-
-    }
-
-   
-    private void Start()
-    {
-        InvokeRepeating("ScoreUp", 1f, 1f);
-    }
+    
     void ScoreUp()
     {
         score ++;

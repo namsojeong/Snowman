@@ -5,8 +5,7 @@ using DG.Tweening;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField]
-    Transform playerTransform;
+    
     [SerializeField]
     Animator koong;
     [SerializeField]
@@ -37,7 +36,7 @@ public class Enemy : MonoBehaviour
         //플레이어 쫓아다니기
         collider.isTrigger = true;
         isMoving = true;
-        transform.position = Vector3.Slerp(transform.position, playerTransform.position, 0.004f); //0.005f가 플레이어 위치로 가는 속도
+        transform.position = Vector3.Slerp(transform.position, InGame.Instance.playerTransform.position, 0.004f); //0.005f가 플레이어 위치로 가는 속도
     }
 
     //고정되기 까지 시간
@@ -80,11 +79,13 @@ public class Enemy : MonoBehaviour
             spriteRenderer.color = Color.grey;
             spriteNum = 0;
             collider.isTrigger = false;
+            InGame.Instance.SpawnFoot();
+            
             CancelInvoke("KoongSprite");
         }
     }
 
-
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.transform.tag == "Player")
