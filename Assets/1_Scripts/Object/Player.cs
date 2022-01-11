@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
         if (pos.y < 0f) pos.y = 0f;
         if (pos.y > 1f) pos.y = 1f;
         transform.position = Camera.main.ViewportToWorldPoint(pos);
-        if (transform.localScale.x <= 1.5f)
+        if (transform.localScale.x <= 1.6f)
         {
             transform.localScale += new Vector3(0.001f, 0.001f);
             InGame.Instance.snowball += 0.001f;
@@ -57,44 +57,10 @@ public class Player : MonoBehaviour
 
         GameObject bullet=ObjectPool.Instance.GetObject(PoolObjectType.BULLET);
         bullet.transform.position = transform.position;
-        float rotationZ = Mathf.Atan2(moveVec2.y, moveVec2.x) * Mathf.Rad2Deg;
-        if(moveVec2.x<=0)
-        bullet.transform.rotation = Quaternion.Euler(0f, 0f, rotationZ+180);
-        else
-        bullet.transform.rotation = Quaternion.Euler(0f, 0f, rotationZ);
-        InGame.Instance.targetBullet = moveVec2;
-        transform.localScale -= new Vector3(0.012f, 0.012f);
-        InGame.Instance.snowball -= 0.012f;
+        transform.localScale -= new Vector3(0.22f, 0.22f);
+        InGame.Instance.snowball -= 0.22f;
         UI.Instance.UpdateSlider(InGame.Instance.snowball);
 
     }
 
-    //조이스틱 움직임
-    //void Move()
-    //{
-    //    float x=1f;
-    //    float y=1f;
-
-    //    Vector3 viewPos = Camera.main.WorldToViewportPoint(transform.position);
-    //    viewPos.x = Mathf.Clamp01(viewPos.x);
-    //    viewPos.y = Mathf.Clamp01(viewPos.y);
-    //    if (viewPos.x < 0f) viewPos.x = 0f;
-    //    if (viewPos.y < 0f) viewPos.y = 0f;
-    //    if (viewPos.x > 1f) viewPos.x = 1f;
-    //    if (viewPos.y > 1f) viewPos.y = 1f;
-    //    Vector3 worldPos = Camera.main.ViewportToWorldPoint(viewPos);
-    //    transform.position = worldPos;
-    //    if (virtualJoystick.Direction == Vector2.zero) return;
-    //    x = virtualJoystick.Horizontal;
-    //    y = virtualJoystick.Vertical;
-    //        transform.position += new Vector3(x, y, 0) * movespeed * Time.deltaTime;
-    //        bulletDir = transform.position + new Vector3(x *1.2f, y * 1.2f, 0);
-    //        if (transform.localScale.x <= 1.5f)
-    //        {
-    //            transform.localScale += new Vector3(0.001f, 0.001f);
-    //            InGame.Instance.snowball += 0.001f;
-    //            UI.Instance.UpdateSlider(InGame.Instance.snowball);
-    //        }
-
-    //}
 }

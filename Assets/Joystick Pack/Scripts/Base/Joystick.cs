@@ -93,6 +93,7 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
             input = new Vector2(input.x, 0f);
         else if (axisOptions == AxisOptions.Vertical)
             input = new Vector2(0f, input.y);
+        InGame.Instance.targetBullet = input;
     }
 
     private float SnapFloat(float value, AxisOptions snapAxis)
@@ -131,6 +132,8 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
 
     public virtual void OnPointerUp(PointerEventData eventData)
     {
+        if(input!=Vector2.zero)
+        InGame.Instance.targetBullet = input;
         input = Vector2.zero;
         handle.anchoredPosition = Vector2.zero;
     }

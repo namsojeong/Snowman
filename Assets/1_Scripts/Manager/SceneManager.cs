@@ -25,6 +25,8 @@ public class SceneManager : MonoBehaviour
     public void OpenScene(int num)
     {
         isRunning = num == 1 ? true : false;
+        
+        
         for (int i = 0; i < 3; i++)
         {
             scenePanel[i].SetActive(false);
@@ -32,6 +34,14 @@ public class SceneManager : MonoBehaviour
         }
         scenePanel[num].SetActive(true);
         sceneObj[num].SetActive(true);
+        if(num==1)
+        {
+            InGame.Instance.SpawnFoot();
+        }
+        else if (num == 2)
+        {
+            InGame.Instance.Reset();
+        }
     }
 
 }

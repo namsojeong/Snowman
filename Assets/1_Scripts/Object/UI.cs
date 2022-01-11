@@ -35,15 +35,15 @@ public class UI : MonoBehaviour
 
     public void UpdateSlider(float value)
     {
-        if (value >= 1)
-        {
-            value = 1;
-        }
-        if (value <= 0)
-        {
-            value = 0;
-        }
         snowbar.value = value;
+        if (snowbar.value >= 1)
+        {
+            snowbar.value = value = 1;
+        }
+        if (snowbar.value <= 0)
+        {
+            snowbar.value = value = 0;
+        }
 
     }
     public void OpenObj(GameObject obj)

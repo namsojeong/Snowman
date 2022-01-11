@@ -22,12 +22,12 @@ public class Enemy : MonoBehaviour
     {
         collider = GetComponent<Collider2D>();
         TimeC = StartCoroutine(TimeCheck());
+        transform.position = Vector2.zero;
         collider.enabled = false;
     }
 
     private void Update()
     {
-
         Move();
     }
 
@@ -37,14 +37,15 @@ public class Enemy : MonoBehaviour
         if (!isMoving) return;
         //플레이어 쫓아다니기
         collider.enabled = false;
+        isDamage = false;
         isMoving = true;
-        transform.position = Vector3.Slerp(transform.position, InGame.Instance.player.transform.position, 0.004f); //0.005f가 플레이어 위치로 가는 속도
+        transform.position = Vector3.Slerp(transform.position, InGame.Instance.player.transform.position, 0.003f); //0.005f가 플레이어 위치로 가는 속도
     }
 
     //고정되기 까지 시간
     IEnumerator TimeCheck()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(6f);
         Koong();
     }
 
@@ -52,9 +53,10 @@ public class Enemy : MonoBehaviour
     void Koong()
     {
         StopCoroutine(TimeC);
+        InGame.Instance.SpawnFoot();
         isMoving = false;
 
-        gameObject.transform.localScale = new Vector3(4f, 4f, 4f);
+        gameObject.transform.localScale = new Vector3(5f, 5f, 1f);
         gameObject.transform.DOScale(new Vector3(2f, 2f, 2f), 1f)
         .OnComplete(() =>
         {
@@ -70,17 +72,15 @@ public class Enemy : MonoBehaviour
     {
         if (spriteNum == 0)
         {
+            spriteRenderer.color = Color.red;
             collider.enabled = true;
             isDamage = true;
-            spriteRenderer.color = Color.red;
             spriteNum = 1;
         }
         else
         {
-            spriteRenderer.color = Color.grey;
-            collider.isTrigger = false;
+            spriteRenderer.color = Color.black;
             spriteNum = 0;
-            InGame.Instance.SpawnFoot();
             CancelInvoke("KoongSprite");
             isDamage = false;
         }
@@ -94,8 +94,8 @@ public class Enemy : MonoBehaviour
             {
                 return;
             }
-            InGame.Instance.Reset();
             SceneManager.Instance.OpenScene(2);
+            
         }
     }
 

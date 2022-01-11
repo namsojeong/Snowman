@@ -21,11 +21,13 @@ public class Bullet : MonoBehaviour
     }
     private void BulletMove()
     {
-        transform.Translate(dir * 2f*Time.deltaTime);
-        if(Mathf.Abs(transform.position.x)>=20f){
+        transform.Translate(dir * 6f * Time.deltaTime);
+        if(Mathf.Abs(transform.position.x)>=27.8f){
+            isDir = false;
             ObjectPool.Instance.ReturnObject(PoolObjectType.BULLET, gameObject);
         }
-        if(Mathf.Abs(transform.position.y) >= 20f){
+        if(Mathf.Abs(transform.position.y) >= 12.5f){
+            isDir = false;
             ObjectPool.Instance.ReturnObject(PoolObjectType.BULLET, gameObject);
         }
     }
@@ -34,6 +36,7 @@ public class Bullet : MonoBehaviour
     {
         if(collision.transform.tag=="FOOT")
         {
+            isDir = false;
             ObjectPool.Instance.ReturnObject(PoolObjectType.FOOT, collision.gameObject);
             ObjectPool.Instance.ReturnObject(PoolObjectType.BULLET, gameObject);
         }
