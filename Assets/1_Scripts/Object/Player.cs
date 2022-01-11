@@ -19,7 +19,6 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        
         transform.position = new Vector3(0, 0, 0);
         UI.Instance.UpdateSlider(InGame.Instance.snowball);
     }
@@ -27,6 +26,47 @@ public class Player : MonoBehaviour
     private void Update()
     {
         Move();
+    }
+
+
+    void Move()
+    {
+        if (virtualJoystick.Direction == Vector2.zero) return;
+        moveVec2 = virtualJoystick.Direction;
+        transform.Translate(moveVec2 * movespeed * Time.deltaTime);
+        bulletDir = new Vector2(moveVec2.x, virtualJoystick.Direction.y);
+        Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
+        if (pos.x < 0f) pos.x = 0f;
+        if (pos.x > 1f) pos.x = 1f;
+        if (pos.y < 0f) pos.y = 0f;
+        if (pos.y > 1f) pos.y = 1f;
+        transform.position = Camera.main.ViewportToWorldPoint(pos);
+        if (transform.localScale.x <= 1.5f)
+        {
+            transform.localScale += new Vector3(0.001f, 0.001f);
+            InGame.Instance.snowball += 0.001f;
+            UI.Instance.UpdateSlider(InGame.Instance.snowball);
+        }
+
+    }
+
+    //총알 발사 버튼 
+    public void OnClickFIre()
+    {
+        if (transform.localScale.x <= 0.6f) return;
+
+        GameObject bullet=ObjectPool.Instance.GetObject(PoolObjectType.BULLET);
+        bullet.transform.position = transform.position;
+        float rotationZ = Mathf.Atan2(moveVec2.y, moveVec2.x) * Mathf.Rad2Deg;
+        if(moveVec2.x<=0)
+        bullet.transform.rotation = Quaternion.Euler(0f, 0f, rotationZ+180);
+        else
+        bullet.transform.rotation = Quaternion.Euler(0f, 0f, rotationZ);
+        InGame.Instance.targetBullet = moveVec2;
+        transform.localScale -= new Vector3(0.012f, 0.012f);
+        InGame.Instance.snowball -= 0.012f;
+        UI.Instance.UpdateSlider(InGame.Instance.snowball);
+
     }
 
     //조이스틱 움직임
@@ -47,8 +87,6 @@ public class Player : MonoBehaviour
     //    if (virtualJoystick.Direction == Vector2.zero) return;
     //    x = virtualJoystick.Horizontal;
     //    y = virtualJoystick.Vertical;
-    //        Debug.Log(x);
-    //        Debug.Log(y);
     //        transform.position += new Vector3(x, y, 0) * movespeed * Time.deltaTime;
     //        bulletDir = transform.position + new Vector3(x *1.2f, y * 1.2f, 0);
     //        if (transform.localScale.x <= 1.5f)
@@ -59,39 +97,4 @@ public class Player : MonoBehaviour
     //        }
 
     //}
-
-    //발사버튼
-
-    void Move()
-    {
-        if (virtualJoystick.Direction == Vector2.zero) return;
-        moveVec2 = virtualJoystick.Direction;
-        transform.Translate(moveVec2 * movespeed * Time.deltaTime);
-        bulletDir = new Vector2(moveVec2.x, virtualJoystick.Direction.y);
-        if (transform.localScale.x <= 1.5f)
-        {
-            transform.localScale += new Vector3(0.001f, 0.001f);
-            InGame.Instance.snowball += 0.001f;
-            UI.Instance.UpdateSlider(InGame.Instance.snowball);
-        }
-
-    }
-    public void OnClickFIre()
-    {
-        if (transform.localScale.x <= 0.6f) return;
-
-        GameObject bullet=ObjectPool.Instance.GetObject(PoolObjectType.BULLET);
-        bullet.transform.position = transform.position;
-        float rotationZ = Mathf.Atan2(moveVec2.y, moveVec2.x) * Mathf.Rad2Deg;
-        if(moveVec2.x<=0)
-        bullet.transform.rotation = Quaternion.Euler(0f, 0f, rotationZ+180);
-        else
-        bullet.transform.rotation = Quaternion.Euler(0f, 0f, rotationZ);
-        InGame.Instance.targetBullet = moveVec2;
-        transform.localScale -= new Vector3(0.012f, 0.012f);
-        InGame.Instance.snowball -= 0.012f;
-        UI.Instance.UpdateSlider(InGame.Instance.snowball);
-
-    }
-
 }

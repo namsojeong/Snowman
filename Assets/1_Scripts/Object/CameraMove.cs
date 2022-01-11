@@ -5,10 +5,13 @@ using DG.Tweening;
 
 public class CameraMove : MonoBehaviour
 {
+
     public Transform target; //타겟 위치
 
     public float smoothSpeed = 3; //이동속도
+
     public Vector2 offset;
+
     float limitMinX=-27.8f, limitMaxX = 27.8f, limitMinY = -12.5f, limitMaxY = 12.5f; //영역
     float cameraHalfWidth, cameraHalfHeight;
 

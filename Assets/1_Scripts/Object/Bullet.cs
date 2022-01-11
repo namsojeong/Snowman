@@ -22,6 +22,12 @@ public class Bullet : MonoBehaviour
     private void BulletMove()
     {
         transform.Translate(dir * 2f*Time.deltaTime);
+        if(Mathf.Abs(transform.position.x)>=20f){
+            ObjectPool.Instance.ReturnObject(PoolObjectType.BULLET, gameObject);
+        }
+        if(Mathf.Abs(transform.position.y) >= 20f){
+            ObjectPool.Instance.ReturnObject(PoolObjectType.BULLET, gameObject);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
