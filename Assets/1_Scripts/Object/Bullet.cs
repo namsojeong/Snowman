@@ -37,7 +37,6 @@ public class Bullet : MonoBehaviour
         if(collision.transform.tag=="FOOT")
         {
             isDir = false;
-            ObjectPool.Instance.ReturnObject(PoolObjectType.FOOT, collision.gameObject);
             ObjectPool.Instance.ReturnObject(PoolObjectType.BULLET, gameObject);
         }
     }

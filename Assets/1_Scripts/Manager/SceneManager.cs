@@ -34,11 +34,8 @@ public class SceneManager : MonoBehaviour
         }
         scenePanel[num].SetActive(true);
         sceneObj[num].SetActive(true);
-        if(num==1)
-        {
-            InGame.Instance.SpawnFoot();
-        }
-        else if (num == 2)
+       
+        if (num == 2)
         {
             InGame.Instance.Reset();
         }

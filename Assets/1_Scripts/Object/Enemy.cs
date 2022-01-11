@@ -53,13 +53,13 @@ public class Enemy : MonoBehaviour
     void Koong()
     {
         StopCoroutine(TimeC);
-        InGame.Instance.SpawnFoot();
         isMoving = false;
 
         gameObject.transform.localScale = new Vector3(5f, 5f, 1f);
         gameObject.transform.DOScale(new Vector3(2f, 2f, 2f), 1f)
         .OnComplete(() =>
         {
+        InGame.Instance.SpawnFoot();
             Camera.main.DOShakePosition(0.8f);
             koong.Play("Anim");
             InvokeRepeating("KoongSprite", 0f, 1f);
@@ -97,6 +97,13 @@ public class Enemy : MonoBehaviour
             SceneManager.Instance.OpenScene(2);
             
         }
+        if (collision.transform.tag == "BULLET")
+        {
+            ObjectPool.Instance.ReturnObject(PoolObjectType.FOOT, gameObject);
+        }
+
+       
     }
+    
 
 }
