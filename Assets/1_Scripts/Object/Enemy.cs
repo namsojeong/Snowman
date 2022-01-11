@@ -21,9 +21,10 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         collider = GetComponent<Collider2D>();
-        TimeC = StartCoroutine(TimeCheck());
+        
         transform.position = Vector2.zero;
         collider.enabled = false;
+
     }
 
     private void Update()
@@ -45,21 +46,33 @@ public class Enemy : MonoBehaviour
     //고정되기 까지 시간
     IEnumerator TimeCheck()
     {
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(3f);
         Koong();
+
+    }
+
+    private void OnDisable()
+    {
+        StopCoroutine(TimeC);
+       // EnemyReset();
+        
+    }
+
+    private void OnEnable()
+    {
+        TimeC = StartCoroutine(TimeCheck());
     }
 
     //쿵!
     void Koong()
     {
-        StopCoroutine(TimeC);
         isMoving = false;
 
         gameObject.transform.localScale = new Vector3(5f, 5f, 1f);
         gameObject.transform.DOScale(new Vector3(2f, 2f, 2f), 1f)
         .OnComplete(() =>
         {
-        InGame.Instance.SpawnFoot();
+            InGame.Instance.SpawnFoot();
             Camera.main.DOShakePosition(0.8f);
             koong.Play("Anim");
             InvokeRepeating("KoongSprite", 0f, 1f);
@@ -94,16 +107,27 @@ public class Enemy : MonoBehaviour
             {
                 return;
             }
+            EnemyReset();
             SceneManager.Instance.OpenScene(2);
             
         }
         if (collision.transform.tag == "BULLET")
         {
+            EnemyReset();
             ObjectPool.Instance.ReturnObject(PoolObjectType.FOOT, gameObject);
         }
 
        
     }
-    
 
+    void EnemyReset()
+    {
+        transform.position = InGame.Instance.player.transform.position;
+        isDamage = false;
+        isMoving = true;
+        spriteRenderer.color = new Color(0, 0, 0, 0.52f);
+        transform.localScale = new Vector3(3f, 3f, 1f);
+        collider.enabled = false;
+    }
+    
 }

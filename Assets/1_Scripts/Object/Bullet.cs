@@ -14,7 +14,6 @@ public class Bullet : MonoBehaviour
         if(!isDir)
         {
             dir = InGame.Instance.targetBullet;
-            Debug.Log(dir);
             isDir = true;
         }
             BulletMove();
