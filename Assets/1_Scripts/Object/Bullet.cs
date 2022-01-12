@@ -30,13 +30,11 @@ public class Bullet : MonoBehaviour
             ObjectPool.Instance.ReturnObject(PoolObjectType.BULLET, gameObject);
         }
     }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.transform.tag=="FOOT")
+        if (collision.transform.tag == "FOOT")
         {
             isDir = false;
-            ObjectPool.Instance.ReturnObject(PoolObjectType.BULLET, gameObject);
         }
     }
 }

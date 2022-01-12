@@ -114,6 +114,7 @@ public class Enemy : MonoBehaviour
         if (collision.transform.tag == "BULLET")
         {
             EnemyReset();
+            ObjectPool.Instance.ReturnObject(PoolObjectType.BULLET, collision.gameObject);
             ObjectPool.Instance.ReturnObject(PoolObjectType.FOOT, gameObject);
         }
 
