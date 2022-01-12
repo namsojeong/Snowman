@@ -37,7 +37,10 @@ public class SceneManager : MonoBehaviour
        
         if (num == 2)
         {
+            PlayerPrefs.SetInt("HIGHSCORE",UI.Instance.highScore);
+            PlayerPrefs.SetInt("SCORE",UI.Instance.score);
             InGame.Instance.Reset();
+            UI.Instance.OverText();
         }
     }
 

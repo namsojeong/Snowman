@@ -35,6 +35,7 @@ public class InGame : MonoBehaviour
         player.transform.localScale = new Vector3(0.6f, 0.6f, 1f);
         player.transform.position = new Vector3(0f, 0f, 0f);
         UI.Instance.UpdateSlider(snowball);
+        UI.Instance.score = 0;
     }
 
 }

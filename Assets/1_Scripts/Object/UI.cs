@@ -16,10 +16,16 @@ public class UI : MonoBehaviour
     [SerializeField]
     Slider snowbar;
 
+    [SerializeField]
+    Text overHighScoreText;
+ 
+    [SerializeField]
+    Text overScoreText;
+
     public float maxsnow;
     private float minsnow;
-    private int score;
-    private int highScore;
+    public int score;
+    public int highScore;
 
 
     private void Awake()
@@ -30,7 +36,6 @@ public class UI : MonoBehaviour
     {
         InvokeRepeating("ScoreUp", 1f, 1f);
         minsnow = 1 / maxsnow;
-
     }
 
     public void UpdateSlider(float value)
@@ -67,32 +72,25 @@ public class UI : MonoBehaviour
 
     void ScoreUp()
     {
+        if(!SceneManager.Instance.isRunning)
+            return;
+      
+        UpdateUI();
         score++;
         if (score > highScore)
         {
             highScore = score;
-            PlayerPrefs.SetInt("SCORE", highScore);
-
         }
-        highScore = PlayerPrefs.GetInt("SCORE", 0);
-        UpdateUI();
     }
-
     void UpdateUI()
     {
         scoreText.text = string.Format($"SCORE {score}");
-        highScoreText.text = string.Format($"HIGHSCORE {highScore}");
+        highScoreText.text = string.Format($"HIGHSCORE {PlayerPrefs.GetInt("HIGHSCORE",0)}");
     }
-
-    public void AddScore(int addScore)
+    public void OverText()
     {
-        score += addScore;
-        if (score > highScore)
-        {
-            highScore = score;
-            PlayerPrefs.SetInt("HIGHSCORE", score);
-        }
-        UpdateUI();
+        overScoreText.text = string.Format($"SCORE {PlayerPrefs.GetInt("SCORE", 0)}");
+        overHighScoreText.text = string.Format($"HIGHSCORE {PlayerPrefs.GetInt("HIGHSCORE", 0)}");
     }
 
 
