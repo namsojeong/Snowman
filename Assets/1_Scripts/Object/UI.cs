@@ -22,11 +22,14 @@ public class UI : MonoBehaviour
     [SerializeField]
     Text overScoreText;
 
+    [SerializeField]
+    GameObject panel;
+
     public float maxsnow;
     private float minsnow;
     public int score;
     public int highScore;
-
+    
 
     private void Awake()
     {
@@ -36,8 +39,17 @@ public class UI : MonoBehaviour
     {
         InvokeRepeating("ScoreUp", 1f, 1f);
         minsnow = 1 / maxsnow;
+        panel.SetActive(false);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            panel.SetActive(true);
+            Time.timeScale = 0;
+        }
+    }
     public void UpdateSlider(float value)
     {
         snowbar.value = value;
@@ -51,14 +63,32 @@ public class UI : MonoBehaviour
         }
 
     }
-    public void OpenObj(GameObject obj)
+
+    public void OnclickExitButton()
     {
-        obj.SetActive(true);
+        panel.SetActive(true);
     }
-    public void CloseObj(GameObject obj)
+
+    public void OnclickYes()
     {
-        obj.SetActive(false);
+        Application.Quit();
     }
+    public void OnclickNo()
+    {
+        panel.SetActive(false);
+        Time.timeScale = 1;
+    }
+
+ 
+
+    //public void OpenObj(GameObject obj)
+    //{
+    //    obj.SetActive(true);
+    //}
+    //public void CloseObj(GameObject obj)
+    //{
+    //    obj.SetActive(false);
+    //}
     public void OnclickOption()
     {
         Time.timeScale = 0;
