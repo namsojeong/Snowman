@@ -1,18 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
 public class CameraMove : MonoBehaviour
 {
+   public Transform target; //타겟 위치
 
-    public Transform target; //타겟 위치
-
-    public float smoothSpeed = 3; //이동속도
-
-    public Vector2 offset;
-
-    float limitMinX=-27.8f, limitMaxX = 27.8f, limitMinY = -12.5f, limitMaxY = 12.5f; //영역
+    Vector2 offset;
+    
+    float smoothSpeed = 3; //카메라 이동속도
     float cameraHalfWidth, cameraHalfHeight;
 
     private void Start()
@@ -30,8 +24,8 @@ public class CameraMove : MonoBehaviour
     void CameraMoving()
     {
         Vector3 desiredPosition = new Vector3(
-            Mathf.Clamp(target.position.x + offset.x, limitMinX + cameraHalfWidth, limitMaxX - cameraHalfWidth),   // X
-            Mathf.Clamp(target.position.y + offset.y, limitMinY + cameraHalfHeight, limitMaxY - cameraHalfHeight), // Y
+            Mathf.Clamp(target.position.x + offset.x, GameManager.Instance.limitMinX + cameraHalfWidth, GameManager.Instance.limitMaxX - cameraHalfWidth),   // X
+            Mathf.Clamp(target.position.y + offset.y, GameManager.Instance.limitMinY + cameraHalfHeight, GameManager.Instance.limitMaxY - cameraHalfHeight), // Y
             -10);                                                                                                  // Z
         transform.position = Vector3.Lerp(transform.position, desiredPosition, Time.deltaTime * smoothSpeed);
     }

@@ -1,21 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
 public class Player : MonoBehaviour
 {
-
-    private float movespeed = 8f; //플레이어 스피드
-
-    public GameObject bulletObj;
-
-    Vector3 bulletDir=Vector3.zero;
-
-    Vector2 moveVec2=Vector2.zero;
-
     [SerializeField]
     VariableJoystick virtualJoystick;
+
+    Vector2 bulletDir = Vector2.zero;
+    Vector2 moveVec2 = Vector2.zero;
+
+    private float movespeed = 8f; //플레이어 스피드
+    private float playerMaxScale = 1.6f; //플레이어 최대 크기
+    private float playerPlusScale = 0.001f; //플레이어 움직일 때 초당 증가하는 크기
+    private float playerMinusScale = 0.2f; //플레이어 발사할 때 감소하는 크기
 
     void Start()
     {
@@ -28,7 +24,7 @@ public class Player : MonoBehaviour
         Move();
     }
 
-
+    //플레이어 움직임
     void Move()
     {
         if (virtualJoystick.Direction == Vector2.zero) return;
@@ -41,10 +37,12 @@ public class Player : MonoBehaviour
         if (pos.y < 0f) pos.y = 0f;
         if (pos.y > 1f) pos.y = 1f;
         transform.position = Camera.main.ViewportToWorldPoint(pos);
-        if (transform.localScale.x <= 1.6f)
+
+        //플레이어 크기 증가
+        if (transform.localScale.x <= playerMaxScale)
         {
-            transform.localScale += new Vector3(0.001f, 0.001f);
-            InGame.Instance.snowball += 0.001f;
+            transform.localScale += new Vector3(playerPlusScale, playerPlusScale);
+            InGame.Instance.snowball += playerPlusScale;
             UI.Instance.UpdateSlider(InGame.Instance.snowball);
         }
 
@@ -53,12 +51,12 @@ public class Player : MonoBehaviour
     //총알 발사 버튼 
     public void OnClickFIre()
     {
-        if (transform.localScale.x <= 0.6f) return;
+        if (transform.localScale.x <= GameManager.Instance.playerInitScale) return;
 
-        GameObject bullet=ObjectPool.Instance.GetObject(PoolObjectType.BULLET);
+        GameObject bullet = ObjectPool.Instance.GetObject(PoolObjectType.BULLET);
         bullet.transform.position = transform.position;
-        transform.localScale -= new Vector3(0.22f, 0.22f);
-        InGame.Instance.snowball -= 0.22f;
+        transform.localScale -= new Vector3(playerMinusScale, playerMinusScale);
+        InGame.Instance.snowball -= playerMinusScale;
         UI.Instance.UpdateSlider(InGame.Instance.snowball);
 
     }

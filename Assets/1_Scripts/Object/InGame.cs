@@ -1,16 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+
 public class InGame : MonoBehaviour
 {
     public static InGame Instance;
 
     public GameObject player;
 
-    public Vector3 targetBullet = Vector3.zero;
+    public Vector2 targetBullet = Vector2.zero;
 
-    public float snowball = 0f;
+    public float snowball = 0f; //눈 개수
 
     private void Awake()
     {
@@ -21,21 +19,26 @@ public class InGame : MonoBehaviour
         }
     }
 
-
+    //발 스폰
     public void SpawnFoot()
     {
         GameObject foot = ObjectPool.Instance.GetObject(PoolObjectType.FOOT);
-        foot.transform.position = new Vector3(player.transform.position.x - 1, player.transform.position.y - 1, 0f);
+        foot.transform.position = new Vector2(player.transform.position.x, player.transform.position.y);
     }
 
+    //게임 리셋
     public void Reset()
     {
         ObjectPool.Instance.ResetObj();
+        PlayerPrefs.SetInt("HIGHSCORE", GameManager.Instance.highScore);
+        PlayerPrefs.SetInt("SCORE", GameManager.Instance.score);
+
         snowball = 0;
-        player.transform.localScale = new Vector3(0.6f, 0.6f, 1f);
-        player.transform.position = new Vector3(0f, 0f, 0f);
+        player.transform.localScale = new Vector2(GameManager.Instance.playerInitScale, GameManager.Instance.playerInitScale);
+        player.transform.position = new Vector2(0f, 0f);
+
         UI.Instance.UpdateSlider(snowball);
-        UI.Instance.score = 0;
+        GameManager.Instance.score = 0;
     }
 
 }

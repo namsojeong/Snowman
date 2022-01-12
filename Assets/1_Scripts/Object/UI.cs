@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,29 +5,22 @@ public class UI : MonoBehaviour
 {
     public static UI Instance;
 
+    [Header("RUNNING")]
     [SerializeField]
     Text scoreText = null;
-
     [SerializeField]
     Text highScoreText = null;
-
     [SerializeField]
     Slider snowbar;
 
+    [Header("GAMEOVER")]
     [SerializeField]
     Text overHighScoreText;
- 
     [SerializeField]
     Text overScoreText;
 
     [SerializeField]
-    GameObject panel;
-
-    public float maxsnow;
-    private float minsnow;
-    public int score;
-    public int highScore;
-    
+    GameObject quitPanel;
 
     private void Awake()
     {
@@ -38,18 +29,19 @@ public class UI : MonoBehaviour
     private void Start()
     {
         InvokeRepeating("ScoreUp", 1f, 1f);
-        minsnow = 1 / maxsnow;
-        panel.SetActive(false);
     }
 
     private void Update()
     {
+        //백버튼
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            panel.SetActive(true);
+            quitPanel.SetActive(true);
             Time.timeScale = 0;
         }
     }
+
+    //게이지 바 UI
     public void UpdateSlider(float value)
     {
         snowbar.value = value;
@@ -63,65 +55,50 @@ public class UI : MonoBehaviour
         }
 
     }
-
-    public void OnclickExitButton()
+    
+    //오브젝트 껐다켰다 + 시간 멈추기
+    public void OpenObj(GameObject obj)
     {
-        panel.SetActive(true);
-    }
-
-    public void OnclickYes()
-    {
-        Application.Quit();
-    }
-    public void OnclickNo()
-    {
-        panel.SetActive(false);
-        Time.timeScale = 1;
-    }
-
- 
-
-    //public void OpenObj(GameObject obj)
-    //{
-    //    obj.SetActive(true);
-    //}
-    //public void CloseObj(GameObject obj)
-    //{
-    //    obj.SetActive(false);
-    //}
-    public void OnclickOption()
-    {
+        obj.SetActive(true);
         Time.timeScale = 0;
     }
-
-    public void OnclickResume()
+    public void CloseObj(GameObject obj)
     {
+        obj.SetActive(false);
         Time.timeScale = 1;
     }
 
-
+    //스코어 올리기
     void ScoreUp()
     {
-        if(!SceneManager.Instance.isRunning)
-            return;
+        if(!SceneManager.Instance.isRunning) return;
       
         UpdateUI();
-        score++;
-        if (score > highScore)
+        GameManager.Instance.score++;
+        if (GameManager.Instance.score > GameManager.Instance.highScore)
         {
-            highScore = score;
+            GameManager.Instance.highScore = GameManager.Instance.score;
         }
     }
+
+    //인게임 스코어 UI
     void UpdateUI()
     {
-        scoreText.text = string.Format($"SCORE {score}");
+        scoreText.text = string.Format($"SCORE\n{GameManager.Instance.score}");
         highScoreText.text = string.Format($"HIGHSCORE {PlayerPrefs.GetInt("HIGHSCORE",0)}");
     }
+
+    //게임오버 UI
     public void OverText()
     {
-        overScoreText.text = string.Format($"SCORE {PlayerPrefs.GetInt("SCORE", 0)}");
+        overScoreText.text = string.Format($"SCORE\n{PlayerPrefs.GetInt("SCORE", 0)}");
         overHighScoreText.text = string.Format($"HIGHSCORE {PlayerPrefs.GetInt("HIGHSCORE", 0)}");
     }
 
+    //종료
+    public void OnQuit()
+    {
+        Application.Quit();
+    }
 
 }

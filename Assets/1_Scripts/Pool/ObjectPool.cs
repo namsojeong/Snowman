@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -67,6 +66,8 @@ public class ObjectPool : MonoBehaviour
         obj.transform.SetParent(Instance.transform);
         Instance.poolObjectMap[type].Enqueue(obj);
     }
+
+    //오브젝트 리셋
     public void ResetObj()
     {
         for (int i = 1; i < Instance.transform.childCount; i++)

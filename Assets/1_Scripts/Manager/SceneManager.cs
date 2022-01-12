@@ -1,19 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class SceneManager : MonoBehaviour
 {
     public static SceneManager Instance;
 
+    //num = 0 -> Standby
+    //num = 1 -> Running
+    //num = 2 -> GameOver
+
+    [Header("씬 UI")]
     [SerializeField]
     GameObject[] scenePanel;
-    
     [SerializeField]
     GameObject[] sceneObj;
 
-    public bool isRunning=false;
+    public bool isRunning = false;
 
     private void Awake()
     {
@@ -24,9 +25,10 @@ public class SceneManager : MonoBehaviour
     //씬 바꾸기 함수
     public void OpenScene(int num)
     {
+        //Running 상태로 변환
         isRunning = num == 1 ? true : false;
-        
-        
+
+        //모두 끄고 원하는 씬만 키기
         for (int i = 0; i < 3; i++)
         {
             scenePanel[i].SetActive(false);
@@ -34,11 +36,10 @@ public class SceneManager : MonoBehaviour
         }
         scenePanel[num].SetActive(true);
         sceneObj[num].SetActive(true);
-       
+
+        //게임오버씬
         if (num == 2)
         {
-            PlayerPrefs.SetInt("HIGHSCORE",UI.Instance.highScore);
-            PlayerPrefs.SetInt("SCORE",UI.Instance.score);
             InGame.Instance.Reset();
             UI.Instance.OverText();
         }

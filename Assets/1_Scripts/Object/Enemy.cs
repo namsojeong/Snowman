@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
@@ -10,9 +9,17 @@ public class Enemy : MonoBehaviour
     Animator koong;
     [SerializeField]
     SpriteRenderer spriteRenderer;
+
     Collider2D collider;
 
     Coroutine TimeC;
+
+    float enemySpeed = 0.003f; //쫓아가는 속도
+    float moveDelay = 3f; //쫓아다니는 시간
+    float scaleDelay = 1f; //크기 바뀔 때 속도
+
+    const float initScale = 3f; //초기 크기
+    const float bigScale = 5f; //커졌을 때 크기
 
     bool isMoving = true; //움직이는 중인가
     bool isDamage = false; //플레이가 데미지 받는지 아닌지
@@ -21,10 +28,9 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         collider = GetComponent<Collider2D>();
-        
+
         transform.position = Vector2.zero;
         collider.enabled = false;
-
     }
 
     private void Update()
@@ -40,22 +46,20 @@ public class Enemy : MonoBehaviour
         collider.enabled = false;
         isDamage = false;
         isMoving = true;
-        transform.position = Vector3.Slerp(transform.position, InGame.Instance.player.transform.position, 0.003f); //0.005f가 플레이어 위치로 가는 속도
+        transform.position = Vector3.Slerp(transform.position, InGame.Instance.player.transform.position, enemySpeed);
     }
 
-    //고정되기 까지 시간
+    //고정될 때까지의  시간
     IEnumerator TimeCheck()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(moveDelay);
         Koong();
-
     }
 
+    //시작과 끝의 코루틴
     private void OnDisable()
     {
         StopCoroutine(TimeC);
-       // EnemyReset();
-        
     }
 
     private void OnEnable()
@@ -68,8 +72,8 @@ public class Enemy : MonoBehaviour
     {
         isMoving = false;
 
-        gameObject.transform.localScale = new Vector3(5f, 5f, 1f);
-        gameObject.transform.DOScale(new Vector3(2f, 2f, 2f), 1f)
+        gameObject.transform.localScale = new Vector3(bigScale, bigScale, 1f);
+        gameObject.transform.DOScale(new Vector3(initScale, initScale, 0f), scaleDelay)
         .OnComplete(() =>
         {
             InGame.Instance.SpawnFoot();
@@ -109,26 +113,26 @@ public class Enemy : MonoBehaviour
             }
             EnemyReset();
             SceneManager.Instance.OpenScene(2);
-            
+
         }
+
         if (collision.transform.tag == "BULLET")
         {
             EnemyReset();
             ObjectPool.Instance.ReturnObject(PoolObjectType.BULLET, collision.gameObject);
             ObjectPool.Instance.ReturnObject(PoolObjectType.FOOT, gameObject);
         }
-
-       
     }
 
+    //오브젝트 리셋
     void EnemyReset()
     {
         transform.position = InGame.Instance.player.transform.position;
         isDamage = false;
         isMoving = true;
         spriteRenderer.color = new Color(0, 0, 0, 0.52f);
-        transform.localScale = new Vector3(3f, 3f, 1f);
+        transform.localScale = new Vector2(initScale, initScale);
         collider.enabled = false;
     }
-    
+
 }

@@ -1,14 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    
+
+    public float limitMinX = -27.8f, limitMaxX = 27.8f, limitMinY = -12.5f, limitMaxY = 12.5f; //영역
+
+    public int score; //점수
+    public int highScore; //최고점수
+
+    public float playerInitScale = 0.6f; //플레이어 기본 크기
 
     private void Awake()
     {
         Instance = this;
-        Screen.SetResolution(2960, 1440, true);
+        //해상도 고정
+        Screen.SetResolution(2960, 1440, false);
     }
 }
