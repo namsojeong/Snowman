@@ -24,6 +24,7 @@ public class Enemy : MonoBehaviour
     bool isMoving = true; //움직이는 중인가
     bool isDamage = false; //플레이가 데미지 받는지 아닌지
     int spriteNum = 0; //빨간지 안빨간지
+    int damageCount = 0;
 
     private void Start()
     {
@@ -113,17 +114,31 @@ public class Enemy : MonoBehaviour
             }
             EnemyReset();
             SceneManager.Instance.OpenScene(2);
+            
 
         }
 
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
         if (collision.transform.tag == "BULLET")
         {
-            EnemyReset();
-            ObjectPool.Instance.ReturnObject(PoolObjectType.BULLET, collision.gameObject);
-            ObjectPool.Instance.ReturnObject(PoolObjectType.FOOT, gameObject);
+            damageCount++;
+            Vector2 damagePos = new Vector2(transform.position.x, transform.position.y-1);
+            if (damageCount==2)
+            {
+                damagePos.y += 2;
+            }
+            MeshParticleSystem.Instance.ShootFoot(damagePos);
+                ObjectPool.Instance.ReturnObject(PoolObjectType.BULLET, collision.gameObject);
+            if (damageCount >= 3)
+            {
+                damageCount = 0;
+                EnemyReset();
+                ObjectPool.Instance.ReturnObject(PoolObjectType.FOOT, gameObject);
+            }
         }
     }
-
     //오브젝트 리셋
     void EnemyReset()
     {
