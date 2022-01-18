@@ -17,10 +17,6 @@ public class SoundManager : MonoBehaviour
         backVolume.value = backvol;
         audio.volume = backVolume.value;
     }
-    private void Update()
-    {
-        SoundSlider();
-    }
 
     public void SoundSlider()
     {

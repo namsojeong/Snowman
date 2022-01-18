@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     Vector2 bulletDir = Vector2.zero;
     Vector2 moveVec2 = Vector2.zero;
 
-    private float movespeed = 8f; //플레이어 스피드
+    
     private float playerMaxScale = 1.6f; //플레이어 최대 크기
     private float playerPlusScale = 0.001f; //플레이어 움직일 때 초당 증가하는 크기
     private float playerMinusScale = 0.2f; //플레이어 발사할 때 감소하는 크기
@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
     {
         if (virtualJoystick.Direction == Vector2.zero) return;
         moveVec2 = virtualJoystick.Direction;
-        transform.Translate(moveVec2 * movespeed * Time.deltaTime);
+        transform.Translate(moveVec2 * GameManager.Instance.moveSpeed * Time.deltaTime);
         bulletDir = new Vector2(moveVec2.x, virtualJoystick.Direction.y);
         Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
         if (pos.x < 0f) pos.x = 0f;

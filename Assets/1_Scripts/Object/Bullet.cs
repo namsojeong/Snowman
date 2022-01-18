@@ -9,7 +9,7 @@ public class Bullet : MonoBehaviour
     Vector2 dir = Vector2.zero;
 
     //총알 스피드
-    float bulletSpeed = 2f;
+    float bulletSpeed = 5f;
 
     private void Update()
     {
@@ -42,7 +42,6 @@ public class Bullet : MonoBehaviour
 
     }
 
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //발에 충돌시
@@ -51,4 +50,5 @@ public class Bullet : MonoBehaviour
             isDir = false;
         }
     }
+
 }

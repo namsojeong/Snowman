@@ -4,9 +4,8 @@ using DG.Tweening;
 
 public class Enemy : MonoBehaviour
 {
-
     [SerializeField]
-    Animator koong;
+    GameObject[] footPrint;
     [SerializeField]
     SpriteRenderer spriteRenderer;
 
@@ -79,7 +78,6 @@ public class Enemy : MonoBehaviour
         {
             InGame.Instance.SpawnFoot();
             Camera.main.DOShakePosition(0.8f);
-            koong.Play("Anim");
             InvokeRepeating("KoongSprite", 0f, 1f);
         });
 
@@ -124,13 +122,14 @@ public class Enemy : MonoBehaviour
         if (collision.transform.tag == "BULLET")
         {
             damageCount++;
-            Vector2 damagePos = new Vector2(transform.position.x, transform.position.y-1);
-            if (damageCount==2)
-            {
-                damagePos.y += 2;
-            }
-            MeshParticleSystem.Instance.ShootFoot(damagePos);
-                ObjectPool.Instance.ReturnObject(PoolObjectType.BULLET, collision.gameObject);
+            footPrint[damageCount - 1].SetActive(true);
+            //Vector2 damagePos = new Vector2(transform.position.x, transform.position.y-1);
+            //if (damageCount==2)
+            //{
+                //damagePos.y += 2;
+            //}
+            //MeshParticleSystem.Instance.ShootFoot(damagePos);
+            ObjectPool.Instance.ReturnObject(PoolObjectType.BULLET, collision.gameObject);
             if (damageCount >= 3)
             {
                 damageCount = 0;
@@ -139,6 +138,7 @@ public class Enemy : MonoBehaviour
             }
         }
     }
+
     //오브젝트 리셋
     void EnemyReset()
     {
@@ -148,6 +148,10 @@ public class Enemy : MonoBehaviour
         spriteRenderer.color = new Color(0, 0, 0, 0.52f);
         transform.localScale = new Vector2(initScale, initScale);
         collider.enabled = false;
+        for(int i=0;i<3;i++)
+        {
+            footPrint[i].SetActive(false);
+        }
     }
 
 }
