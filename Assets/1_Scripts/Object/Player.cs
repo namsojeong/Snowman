@@ -8,20 +8,17 @@ public class Player : MonoBehaviour
     Vector2 bulletDir = Vector2.zero;
     Vector2 moveVec2 = Vector2.zero;
 
-    
     private float playerMaxScale = 1.6f; //플레이어 최대 크기
-    private float playerPlusScale = 0.001f; //플레이어 움직일 때 초당 증가하는 크기
-    private float playerMinusScale = 0.2f; //플레이어 발사할 때 감소하는 크기
 
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
-        UI.Instance.UpdateSlider(InGame.Instance.snowball);
     }
 
     private void Update()
     {
         Move();
+        ChangeScale();
     }
 
     //플레이어 움직임
@@ -41,24 +38,25 @@ public class Player : MonoBehaviour
         //플레이어 크기 증가
         if (transform.localScale.x <= playerMaxScale)
         {
-            transform.localScale += new Vector3(playerPlusScale, playerPlusScale);
-            InGame.Instance.snowball += playerPlusScale;
-            UI.Instance.UpdateSlider(InGame.Instance.snowball);
+            InGame.Instance.PlayerScale(true);
         }
+    }
 
+    //플레이어 크기 바꾸기
+    void ChangeScale()
+    {
+        transform.localScale = new Vector3(InGame.Instance.playerScale, InGame.Instance.playerScale, 1f);
+        UI.Instance.UpdateSlider(InGame.Instance.playerScale);
     }
 
     //총알 발사 버튼 
     public void OnClickFIre()
     {
-        if (transform.localScale.x <= GameManager.Instance.playerInitScale) return;
-
+        if (InGame.Instance.snowball < 1) return;
+        InGame.Instance.SnowBall();
         GameObject bullet = ObjectPool.Instance.GetObject(PoolObjectType.BULLET);
         bullet.transform.position = transform.position;
-        transform.localScale -= new Vector3(playerMinusScale, playerMinusScale);
-        InGame.Instance.snowball -= playerMinusScale;
-        UI.Instance.UpdateSlider(InGame.Instance.snowball);
-
+        InGame.Instance.PlayerScale(false);
     }
 
 }

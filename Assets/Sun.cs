@@ -37,10 +37,9 @@ public class Sun : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
+            InGame.Instance.PlayerScale(false);
+            InGame.Instance.PlayerScale(false);
             GameManager.Instance.moveSpeed = 8f;
-            InGame.Instance.snowball -= 1;
-            if (InGame.Instance.snowball <= 0)
-                InGame.Instance.snowball = 0;
         }
         
     }

@@ -41,19 +41,26 @@ public class UI : MonoBehaviour
         }
     }
 
-    //게이지 바 UI
+    //게이지 바 UI + 스노우볼 개수
     public void UpdateSlider(float value)
     {
         snowbar.value = value;
-        if (snowbar.value >= 1)
-        {
-            snowbar.value = value = 1;
-        }
+        
         if (snowbar.value <= 0)
         {
-            snowbar.value = value = 0;
+            snowbar.value = 0;
+            InGame.Instance.snowball = 0;
         }
-
+        else
+        {
+            int count = 0;
+            for (float i = value; i > 0.6f; i -= 0.2f)
+            {
+                count++;
+            }
+            InGame.Instance.snowball = count;
+            count = 0;
+        }
     }
     
     //오브젝트 껐다켰다 + 시간 멈추기
