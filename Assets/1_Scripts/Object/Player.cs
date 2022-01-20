@@ -54,7 +54,8 @@ public class Player : MonoBehaviour
     {
         if (InGame.Instance.snowball < 1) return;
         InGame.Instance.SnowBall();
-        GameObject bullet = ObjectPool.Instance.GetObject(PoolObjectType.BULLET);
+        GameObject bullet;
+            bullet = ObjectPool.Instance.GetObject(PoolObjectType.BULLET);
         bullet.transform.position = transform.position;
         InGame.Instance.PlayerScale(false);
     }

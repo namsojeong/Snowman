@@ -6,6 +6,7 @@ TagManager:
   tags:
   - FOOT
   - BULLET
+  - STONE
   layers:
   - Default
   - TransparentFX

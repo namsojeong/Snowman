@@ -1130,7 +1130,8 @@ MonoBehaviour:
     - {fileID: 3145107656986939415, guid: de34dd601a3e6704f84472b48aa4bde2, type: 3}
     - {fileID: 6806256147992030137, guid: 16e803d1f0e347440945769199bfb5ab, type: 3}
     - {fileID: 1881050240512448150, guid: 61fe7057ec441fd41a35516baa8b5b53, type: 3}
-    prefabsCounts: 1e000000640000001e000000
+    - {fileID: 7765539286275495449, guid: 6e608bdce829fe643a01630085b3e4ae, type: 3}
+    prefabsCounts: 1e000000640000001e0000001e000000
   objectPool: {fileID: 0}
 --- !u!1 &314225645
 GameObject:

@@ -121,14 +121,16 @@ public class Enemy : MonoBehaviour
     {
         if (collision.transform.tag == "BULLET")
         {
+            if (InGame.Instance.haveStone)
+            {
+                damageCount = 0;
+                EnemyReset();
+                InGame.Instance.haveStone = false;
+                ObjectPool.Instance.ReturnObject(PoolObjectType.FOOT, gameObject);
+            }
+
             damageCount++;
             footPrint[damageCount - 1].SetActive(true);
-            //Vector2 damagePos = new Vector2(transform.position.x, transform.position.y-1);
-            //if (damageCount==2)
-            //{
-                //damagePos.y += 2;
-            //}
-            //MeshParticleSystem.Instance.ShootFoot(damagePos);
             ObjectPool.Instance.ReturnObject(PoolObjectType.BULLET, collision.gameObject);
             if (damageCount >= 3)
             {

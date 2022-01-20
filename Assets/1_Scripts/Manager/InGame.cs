@@ -16,6 +16,8 @@ public class InGame : MonoBehaviour
     public float playerScale = 0.6f;
 
     bool isLighting = false;
+    bool isStone = false;
+    public bool haveStone = false;
 
     int lightTime = 0;
 
@@ -72,6 +74,12 @@ public class InGame : MonoBehaviour
             mainLight.intensity = 0.3f;
             InvokeRepeating("SpawnLight", 0f, Random.Range(5f, 30f));
         }
+        if(GameManager.Instance.score == 10)
+        {
+            if (isStone) return;
+            isStone = true;
+            InvokeRepeating("SpawnStone", 0f, 5f);
+        }
     }
 
     //빛 스폰
@@ -88,6 +96,13 @@ public class InGame : MonoBehaviour
         light.transform.position = new Vector3(Random.Range(-27.8f, 27.8f), Random.Range(-12.5f, 12.5f), 0f);
     }
 
+    //돌 아이템 스폰
+    private void SpawnStone()
+    {
+        GameObject stone = ObjectPool.Instance.GetObject(PoolObjectType.STONE);
+        stone.transform.position = new Vector3(Random.Range(-27.8f, 27.8f), Random.Range(-12.5f, 12.5f), 0f);
+    }
+
     //발 스폰
     public void SpawnFoot()
     {
@@ -99,8 +114,11 @@ public class InGame : MonoBehaviour
     public void Reset()
     {
         CancelInvoke("SpawnLight");
+        CancelInvoke("SpawnStone");
         mainLight.intensity = 1f;
         isLighting = false;
+        isStone = false;
+        haveStone = false;
 
         ObjectPool.Instance.ResetObj();
         PlayerPrefs.SetInt("HIGHSCORE", GameManager.Instance.highScore);
