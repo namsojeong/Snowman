@@ -1131,7 +1131,8 @@ MonoBehaviour:
     - {fileID: 6806256147992030137, guid: 16e803d1f0e347440945769199bfb5ab, type: 3}
     - {fileID: 1881050240512448150, guid: 61fe7057ec441fd41a35516baa8b5b53, type: 3}
     - {fileID: 7765539286275495449, guid: 6e608bdce829fe643a01630085b3e4ae, type: 3}
-    prefabsCounts: 1e000000640000001e0000001e000000
+    - {fileID: 5656219043791003990, guid: ab0953e9f4e211942ab8c3e582e1192c, type: 3}
+    prefabsCounts: 1e000000640000001e0000001e0000001e000000
   objectPool: {fileID: 0}
 --- !u!1 &314225645
 GameObject:
@@ -4490,6 +4491,7 @@ MonoBehaviour:
   targetBullet: {x: 0, y: 0}
   snowball: 0
   playerScale: 0.6
+  haveStone: 0
 --- !u!1 &1276127773
 GameObject:
   m_ObjectHideFlags: 0

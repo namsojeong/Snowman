@@ -17,6 +17,7 @@ public class InGame : MonoBehaviour
 
     bool isLighting = false;
     bool isStone = false;
+    bool isAngel = false;
     public bool haveStone = false;
 
     int lightTime = 0;
@@ -79,6 +80,7 @@ public class InGame : MonoBehaviour
             if (isStone) return;
             isStone = true;
             InvokeRepeating("SpawnStone", 0f, 5f);
+            InvokeRepeating("SpawnAngel", 0f, 5f);
         }
     }
 
@@ -96,6 +98,13 @@ public class InGame : MonoBehaviour
         light.transform.position = new Vector3(Random.Range(-27.8f, 27.8f), Random.Range(-12.5f, 12.5f), 0f);
     }
 
+    //눈천사 아이템 스폰
+    private void SpawnAngel()
+    {
+        GameObject angel = ObjectPool.Instance.GetObject(PoolObjectType.ANGEL);
+        angel.transform.position = new Vector3(Random.Range(-27.8f, 27.8f), Random.Range(-12.5f, 12.5f), 0f);
+    }
+    
     //돌 아이템 스폰
     private void SpawnStone()
     {
@@ -115,9 +124,11 @@ public class InGame : MonoBehaviour
     {
         CancelInvoke("SpawnLight");
         CancelInvoke("SpawnStone");
+        CancelInvoke("SpawnAngel");
         mainLight.intensity = 1f;
         isLighting = false;
         isStone = false;
+        isAngel = false;
         haveStone = false;
 
         ObjectPool.Instance.ResetObj();
