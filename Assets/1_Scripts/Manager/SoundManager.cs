@@ -5,18 +5,38 @@ using UnityEngine.UI;
 
 public class SoundManager : MonoBehaviour
 {
+    public static SoundManager Instance = null;
 
-    public Slider BGMVolume;
-    public Slider SFXVolume;
-    public AudioSource bGMSource;
-    public AudioSource sfxSource;
-    public AudioSource clickSource;
+    [Header("VolumeSlider")]
+    [SerializeField]
+    Slider BGMVolume;
+    [SerializeField]
+    Slider SFXVolume;
+    
+    [Header("AudioSourcce")]
+    [SerializeField]
+    AudioSource bGMSource;
+    [SerializeField]
+    AudioSource sfxSource;
+    [SerializeField]
+    AudioSource clickSource;
+
+    [Header("AudioClip")]
+    [SerializeField]
+    AudioClip[] bgmClip;
+    [SerializeField]
+    AudioClip[] sfxClip;
+
 
     private float bgmvol = 1;
     private float sfxvol = 1;
 
-    private void Start()
+    private void Awake()
     {
+        Instance = this;
+        if (Instance == null)
+            Instance = GetComponent<SoundManager>();
+        
         SettingVol();   
     }
 
@@ -52,5 +72,18 @@ public class SoundManager : MonoBehaviour
         sfxSource.volume = SFXVolume.value;
     }
 
-
+    //사운드 실행
+    public void SoundOn(string source, int num)
+    {
+        if (source == "SFX")
+        {
+            sfxSource.clip = sfxClip[num];
+            sfxSource.Play();
+        }
+        else if (source == "BGM")
+        {
+            bGMSource.clip = bgmClip[num];
+            bGMSource.Play();
+        }
+    }
 }
