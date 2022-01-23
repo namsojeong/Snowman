@@ -14,6 +14,7 @@ public class SceneManager : MonoBehaviour
     [SerializeField]
     GameObject[] sceneObj;
 
+
     public bool isRunning = false;
 
     private void Awake()
@@ -41,6 +42,7 @@ public class SceneManager : MonoBehaviour
         if (num == 2)
         {
             InGame.Instance.Reset();
+            UI.Instance.UpdateOverUI();
             UI.Instance.OverText();
         }
     }

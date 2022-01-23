@@ -6,23 +6,51 @@ using UnityEngine.UI;
 public class SoundManager : MonoBehaviour
 {
 
-    public Slider backVolume;
-    public AudioSource audio;
+    public Slider BGMVolume;
+    public Slider SFXVolume;
+    public AudioSource bGMSource;
+    public AudioSource sfxSource;
+    public AudioSource clickSource;
 
-    private float backvol = 1;
+    private float bgmvol = 1;
+    private float sfxvol = 1;
 
     private void Start()
     {
-        backvol = PlayerPrefs.GetFloat("backvol", 1);
-        backVolume.value = backvol;
-        audio.volume = backVolume.value;
+        SettingVol();   
     }
 
-    public void SoundSlider()
+    public void BGMSoundSlider()
     {
-        audio.volume = backVolume.value;
+        bGMSource.volume = BGMVolume.value;
 
-        backvol = backVolume.value;
-        PlayerPrefs.SetFloat("backvol", backvol);
+        bgmvol = BGMVolume.value;
+        PlayerPrefs.SetFloat("BGMvol", bgmvol);
     }
+    
+    public void SFXSoundSlider()
+    {
+        sfxSource.volume = SFXVolume.value;
+
+        sfxvol = SFXVolume.value;
+        PlayerPrefs.SetFloat("SFXvol", sfxvol);
+    }
+
+    public void ClickSound()
+    {
+        clickSource.Play();
+    }
+    
+    void SettingVol()
+    {
+        bgmvol = PlayerPrefs.GetFloat("BGMvol", 1);
+        BGMVolume.value = bgmvol;
+        bGMSource.volume = BGMVolume.value;
+
+        sfxvol = PlayerPrefs.GetFloat("SFXvol", 1);
+        SFXVolume.value = sfxvol;
+        sfxSource.volume = SFXVolume.value;
+    }
+
+
 }

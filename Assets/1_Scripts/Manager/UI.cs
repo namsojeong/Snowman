@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class UI : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class UI : MonoBehaviour
     Text scoreText = null;
     [SerializeField]
     Text highScoreText = null;
+    [SerializeField]
+    Text overText = null;
     [SerializeField]
     Slider snowbar;
 
@@ -96,10 +99,16 @@ public class UI : MonoBehaviour
     }
 
     //게임오버 UI
-    public void OverText()
+    public void UpdateOverUI()
     {
+        overText.text = string.Format("");
         overScoreText.text = string.Format($"SCORE\n{PlayerPrefs.GetInt("SCORE", 0)}");
         overHighScoreText.text = string.Format($"HIGHSCORE {PlayerPrefs.GetInt("HIGHSCORE", 0)}");
+    }
+
+    public void OverText()
+    {
+        overText.DOText("GAME OVER", 2f);
     }
 
     //종료
