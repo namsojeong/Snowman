@@ -1121,7 +1121,11 @@ MonoBehaviour:
   bgmClip:
   - {fileID: 8300000, guid: ba176a800d28cc24986ca2d137f73974, type: 3}
   - {fileID: 8300000, guid: af1e600fc741b0e46aad97d90ca9db3b, type: 3}
-  sfxClip: []
+  - {fileID: 8300000, guid: e149fb423d7928845889c699bac2c728, type: 3}
+  sfxClip:
+  - {fileID: 8300000, guid: 7bb67029449a5714bbb4dd2b66f096fc, type: 3}
+  - {fileID: 8300000, guid: 4880e174a9579d045aaeaf20c7a01101, type: 3}
+  - {fileID: 8300000, guid: e09992fd4798c8542ba530c0e45816f3, type: 3}
 --- !u!1 &262602811
 GameObject:
   m_ObjectHideFlags: 0
@@ -8927,7 +8931,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00012207031, y: -0.000061035156}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &6074874232114711293
