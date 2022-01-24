@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
+
 public class UI : MonoBehaviour
 {
     public static UI Instance;
@@ -123,4 +124,5 @@ public class UI : MonoBehaviour
     {
 
     }
+    
 }
