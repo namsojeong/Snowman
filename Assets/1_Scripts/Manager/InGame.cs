@@ -124,7 +124,7 @@ public class InGame : MonoBehaviour
     public void SpawnFoot()
     {
         GameObject foot = ObjectPool.Instance.GetObject(PoolObjectType.FOOT);
-        foot.transform.position = new Vector2(player.transform.position.x, player.transform.position.y);
+        foot.transform.position = player.transform.position;
     }
 
     //게임 리셋

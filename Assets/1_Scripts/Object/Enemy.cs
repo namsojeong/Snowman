@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
 
     Coroutine TimeC;
 
-    float enemySpeed = 0.003f; //쫓아가는 속도
+    float enemySpeed = 0.01f; //쫓아가는 속도
     float moveDelay = 3f; //쫓아다니는 시간
     float scaleDelay = 1f; //크기 바뀔 때 속도
 
@@ -29,7 +29,6 @@ public class Enemy : MonoBehaviour
     {
         collider = GetComponent<Collider2D>();
 
-        transform.position = Vector2.zero;
         collider.enabled = false;
     }
 
