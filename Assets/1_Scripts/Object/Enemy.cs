@@ -111,7 +111,7 @@ public class Enemy : MonoBehaviour
                 return;
             }
             EnemyReset();
-            SceneManager.Instance.OpenScene(2);
+            SceneM.Instance.OpenScene(2);
             
 
         }

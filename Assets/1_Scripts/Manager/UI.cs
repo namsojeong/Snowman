@@ -84,7 +84,7 @@ public class UI : MonoBehaviour
     //스코어 올리기
     void ScoreUp()
     {
-        if(!SceneManager.Instance.isRunning) return;
+        if(!SceneM.Instance.isRunning) return;
       
         UpdateUI();
         GameManager.Instance.score++;
@@ -120,9 +120,5 @@ public class UI : MonoBehaviour
         Application.Quit();
     }
 
-    public void TextUp()
-    {
-
-    }
     
 }

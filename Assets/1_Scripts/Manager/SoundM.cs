@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SoundManager : MonoBehaviour
+public class SoundM : MonoBehaviour
 {
-    public static SoundManager Instance = null;
+    public static SoundM Instance = null;
 
     [Header("VolumeSlider")]
     [SerializeField]
@@ -35,8 +35,9 @@ public class SoundManager : MonoBehaviour
     {
         Instance = this;
         if (Instance == null)
-            Instance = GetComponent<SoundManager>();
-        
+            Instance = GetComponent<SoundM>();
+
+
         SettingVol();   
     }
 
