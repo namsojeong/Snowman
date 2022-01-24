@@ -86,6 +86,7 @@ public class Enemy : MonoBehaviour
     //Äô ÇßÀ» ¶§ »¡°³Áö±â
     void KoongSprite()
     {
+        SoundM.Instance.SoundOn("SFX", 1);
         if (spriteNum == 0)
         {
             spriteRenderer.color = Color.red;

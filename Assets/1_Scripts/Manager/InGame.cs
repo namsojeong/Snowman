@@ -164,6 +164,7 @@ public class InGame : MonoBehaviour
             return;
         }
         InvenAngel(false);
+        SoundM.Instance.SoundOn("SFX", 0);
         GameObject trap = ObjectPool.Instance.GetObject(PoolObjectType.ANGELITEM);
         trap.transform.position = player.transform.position;
     }

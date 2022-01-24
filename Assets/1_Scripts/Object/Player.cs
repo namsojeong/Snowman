@@ -53,6 +53,7 @@ public class Player : MonoBehaviour
     public void OnClickFIre()
     {
         if (InGame.Instance.snowball < 1) return;
+        SoundM.Instance.SoundOn("SFX", 2);
         InGame.Instance.SnowBall();
         GameObject bullet;
             bullet = ObjectPool.Instance.GetObject(PoolObjectType.BULLET);
