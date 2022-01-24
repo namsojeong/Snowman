@@ -5,6 +5,15 @@ using UnityEngine;
 public class Sun : MonoBehaviour
 {
     int time = 0;
+
+    private void Update()
+    {
+        if (!InGame.Instance.isLighting)
+        {
+            ObjectPool.Instance.ReturnObject(PoolObjectType.LIGHT, gameObject);
+        }
+
+    }
     private void OnEnable()
     {
         InvokeRepeating("TimeCheck", 1f, 1f);

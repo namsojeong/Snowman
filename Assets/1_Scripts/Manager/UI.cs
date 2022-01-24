@@ -24,6 +24,8 @@ public class UI : MonoBehaviour
 
     [SerializeField]
     GameObject quitPanel;
+    [SerializeField]
+    Text plusScoreText;
 
     private void Awake()
     {
@@ -117,4 +119,8 @@ public class UI : MonoBehaviour
         Application.Quit();
     }
 
+    public void TextUp()
+    {
+
+    }
 }

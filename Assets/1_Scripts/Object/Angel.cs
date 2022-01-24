@@ -7,6 +7,7 @@ public class Angel : MonoBehaviour
     int time = 0;
     const int returnTime = 5;
 
+
     private void OnEnable()
     {
         InvokeRepeating("SpawnTime", 1f, 1f);
@@ -31,6 +32,8 @@ public class Angel : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
+            if (InGame.Instance.haveAngel) return;
+            InGame.Instance.InvenAngel(true);
             ObjectPool.Instance.ReturnObject(PoolObjectType.ANGEL, gameObject);
         }
 

@@ -4,5 +4,6 @@ public enum PoolObjectType
     FOOT,
     LIGHT,
     STONE,
-    ANGEL
+    ANGEL,
+    ANGELITEM
 }

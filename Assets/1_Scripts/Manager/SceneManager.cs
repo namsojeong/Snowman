@@ -38,9 +38,14 @@ public class SceneManager : MonoBehaviour
         scenePanel[num].SetActive(true);
         sceneObj[num].SetActive(true);
 
+        if(num<2)
+        {
+            SoundManager.Instance.SoundOn("BGM", num);
+        }
         //°ÔÀÓ¿À¹ö¾À
         if (num == 2)
         {
+            SoundManager.Instance.SoundOn("BGM", 0);
             InGame.Instance.Reset();
             UI.Instance.UpdateOverUI();
             UI.Instance.OverText();

@@ -5,6 +5,8 @@ public class InGame : MonoBehaviour
 {
     [SerializeField]
     private Light2D mainLight;
+    [SerializeField]
+    GameObject angelInven;
 
     public static InGame Instance;
 
@@ -15,15 +17,19 @@ public class InGame : MonoBehaviour
     public float snowball = 0; //눈 개수
     public float playerScale = 0.6f;
 
-    bool isLighting = false;
     bool isStone = false;
     bool isAngel = false;
+    public bool isLighting = false;
+    public bool haveAngel = false;
     public bool haveStone = false;
 
     int lightTime = 0;
+    int noAngelTime = 0;
 
     private float playerPlusScale = 0.001f; //플레이어 움직일 때 초당 증가하는 크기
     private float playerMinusScale = 0.2f; //플레이어 발사할 때 감소하는 크기
+
+
 
     private void Awake()
     {
@@ -41,7 +47,7 @@ public class InGame : MonoBehaviour
     //총알 줄어들기
     public void SnowBall()
     {
-            snowball -= 1;
+        snowball -= 1;
     }
 
     //플레이어 크기 바꾸기
@@ -50,7 +56,7 @@ public class InGame : MonoBehaviour
         if (isBig)
         {
             playerScale += playerPlusScale;
-            if(playerScale>=1.6f)
+            if (playerScale >= 1.6f)
             {
                 playerScale = 1.6f;
             }
@@ -58,7 +64,7 @@ public class InGame : MonoBehaviour
         else
         {
             playerScale -= playerMinusScale;
-            if(playerScale<=0.6f)
+            if (playerScale <= 0.6f)
             {
                 playerScale = 0.6f;
             }
@@ -75,7 +81,7 @@ public class InGame : MonoBehaviour
             mainLight.intensity = 0.3f;
             InvokeRepeating("SpawnLight", 0f, Random.Range(5f, 30f));
         }
-        if(GameManager.Instance.score == 10)
+        if (GameManager.Instance.score == 11)
         {
             if (isStone) return;
             isStone = true;
@@ -94,6 +100,7 @@ public class InGame : MonoBehaviour
             mainLight.intensity = 1f;
             isLighting = false;
         }
+        Debug.Log("에잉쯧");
         GameObject light = ObjectPool.Instance.GetObject(PoolObjectType.LIGHT);
         light.transform.position = new Vector3(Random.Range(-27.8f, 27.8f), Random.Range(-12.5f, 12.5f), 0f);
     }
@@ -104,7 +111,7 @@ public class InGame : MonoBehaviour
         GameObject angel = ObjectPool.Instance.GetObject(PoolObjectType.ANGEL);
         angel.transform.position = new Vector3(Random.Range(-27.8f, 27.8f), Random.Range(-12.5f, 12.5f), 0f);
     }
-    
+
     //돌 아이템 스폰
     private void SpawnStone()
     {
@@ -141,6 +148,24 @@ public class InGame : MonoBehaviour
         player.transform.position = new Vector2(0f, 0f);
 
         GameManager.Instance.score = 0;
+    }
+
+    //인벤토리 에인젤
+    public void InvenAngel(bool action)
+    {
+        haveAngel = action;
+        angelInven.SetActive(action);
+    }
+
+    public void AngelClick()
+    {
+        if (!haveAngel)
+        {
+            return;
+        }
+        InvenAngel(false);
+        GameObject trap = ObjectPool.Instance.GetObject(PoolObjectType.ANGELITEM);
+        trap.transform.position = player.transform.position;
     }
 
 }

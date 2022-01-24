@@ -42,6 +42,7 @@ public class SoundManager : MonoBehaviour
 
     public void BGMSoundSlider()
     {
+        Debug.Log(bGMSource.volume);
         bGMSource.volume = BGMVolume.value;
 
         bgmvol = BGMVolume.value;
@@ -50,6 +51,7 @@ public class SoundManager : MonoBehaviour
     
     public void SFXSoundSlider()
     {
+        Debug.Log(sfxSource.volume);
         sfxSource.volume = SFXVolume.value;
 
         sfxvol = SFXVolume.value;
