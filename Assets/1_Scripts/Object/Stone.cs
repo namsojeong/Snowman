@@ -31,7 +31,7 @@ public class Stone : MonoBehaviour
     {
         if(collision.tag=="Player")
         {
-            InGame.Instance.haveStone = true;
+            InGame.Instance.InvenStone(true);
             ObjectPool.Instance.ReturnObject(PoolObjectType.STONE, gameObject);
         }
         

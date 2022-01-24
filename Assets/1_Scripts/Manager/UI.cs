@@ -25,8 +25,6 @@ public class UI : MonoBehaviour
 
     [SerializeField]
     GameObject quitPanel;
-    [SerializeField]
-    Text plusScoreText;
 
     private void Awake()
     {
@@ -60,6 +58,11 @@ public class UI : MonoBehaviour
         else
         {
             int count = 0;
+            if(snowbar.value<0.8f)
+            {
+                InGame.Instance.snowball = 0;
+                return;
+            }
             for (float i = value; i > 0.6f; i -= 0.2f)
             {
                 count++;
@@ -97,8 +100,8 @@ public class UI : MonoBehaviour
     //인게임 스코어 UI
     void UpdateUI()
     {
-        scoreText.text = string.Format($"SCORE\n{GameManager.Instance.score}");
-        highScoreText.text = string.Format($"HIGHSCORE {PlayerPrefs.GetInt("HIGHSCORE",0)}");
+        scoreText.text = string.Format($"{GameManager.Instance.score}");
+        highScoreText.text = string.Format($"BEST {PlayerPrefs.GetInt("HIGHSCORE",0)}");
     }
 
     //게임오버 UI

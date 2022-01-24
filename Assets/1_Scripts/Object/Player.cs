@@ -56,9 +56,14 @@ public class Player : MonoBehaviour
         SoundM.Instance.SoundOn("SFX", 2);
         InGame.Instance.SnowBall();
         GameObject bullet;
-            bullet = ObjectPool.Instance.GetObject(PoolObjectType.BULLET);
+        bullet = ObjectPool.Instance.GetObject(PoolObjectType.BULLET);
         bullet.transform.position = transform.position;
         InGame.Instance.PlayerScale(false);
+        if(InGame.Instance.haveStone)
+        {
+            bullet.tag = "STONESNOW";
+            InGame.Instance.InvenStone(false);
+        }
     }
 
 }

@@ -86,6 +86,7 @@ public class Enemy : MonoBehaviour
     //쿵 했을 때 빨개지기
     void KoongSprite()
     {
+        damageCount = 0;
         SoundM.Instance.SoundOn("SFX", 1);
         if (spriteNum == 0)
         {
@@ -113,7 +114,7 @@ public class Enemy : MonoBehaviour
             }
             EnemyReset();
             SceneM.Instance.OpenScene(2);
-            
+
 
         }
 
@@ -122,39 +123,44 @@ public class Enemy : MonoBehaviour
     {
         if (collision.transform.tag == "BULLET")
         {
-            if (InGame.Instance.haveStone)
-            {
-                damageCount = 0;
-                EnemyReset();
-                InGame.Instance.haveStone = false;
-                ObjectPool.Instance.ReturnObject(PoolObjectType.FOOT, gameObject);
-            }
-
-            damageCount++;
-            footPrint[damageCount - 1].SetActive(true);
             ObjectPool.Instance.ReturnObject(PoolObjectType.BULLET, collision.gameObject);
-            if (damageCount >= 3)
-            {
-                damageCount = 0;
-                EnemyReset();
-                ObjectPool.Instance.ReturnObject(PoolObjectType.FOOT, gameObject);
-            }
+            EnemyDamage();
+        }
+        if (collision.transform.tag == "STONESNOW")
+        {
+            collider.tag = "BULLET";
+            ObjectPool.Instance.ReturnObject(PoolObjectType.BULLET, collision.gameObject);
+            damageCount = 0;
+            EnemyReset();
+            ObjectPool.Instance.ReturnObject(PoolObjectType.FOOT, gameObject);
+        }
+    }
+
+    void EnemyDamage()
+    {
+        damageCount++;
+        footPrint[damageCount - 1].SetActive(true);
+        if (damageCount >= 3)
+        {
+            damageCount = 0;
+            EnemyReset();
+            ObjectPool.Instance.ReturnObject(PoolObjectType.FOOT, gameObject);
         }
     }
 
     //오브젝트 리셋
     void EnemyReset()
     {
+        for (int i = 0; i < 3; i++)
+        {
+            footPrint[i].SetActive(false);
+        }
         transform.position = InGame.Instance.player.transform.position;
         isDamage = false;
         isMoving = true;
         spriteRenderer.color = new Color(0, 0, 0, 0.52f);
         transform.localScale = new Vector2(initScale, initScale);
         collider.enabled = false;
-        for(int i=0;i<3;i++)
-        {
-            footPrint[i].SetActive(false);
-        }
     }
 
 }

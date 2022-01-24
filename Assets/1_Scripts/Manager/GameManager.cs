@@ -15,7 +15,5 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        //해상도 고정
-        Screen.SetResolution(2960, 1440, false);
     }
 }

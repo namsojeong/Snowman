@@ -11,6 +11,10 @@ public class Bullet : MonoBehaviour
     //총알 스피드
     float bulletSpeed = 5f;
 
+    private void OnDisable()
+    {
+        gameObject.tag = "BULLET";
+    }
     private void Update()
     {
         //방향 정해주기
@@ -42,13 +46,14 @@ public class Bullet : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         //발에 충돌시
         if (collision.transform.tag == "FOOT")
         {
             isDir = false;
         }
+
     }
 
 }

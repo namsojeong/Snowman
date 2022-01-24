@@ -5,6 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class Tutorial : MonoBehaviour
 {
+
+    private void Awake()
+    {
+        //해상도 고정
+        Screen.SetResolution(2960, 1440, true);
+
+    }
     public void OnClickSkipButton()
     {
         SceneManager.LoadScene("Main");

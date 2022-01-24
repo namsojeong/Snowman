@@ -7,6 +7,8 @@ public class InGame : MonoBehaviour
     private Light2D mainLight;
     [SerializeField]
     GameObject angelInven;
+    [SerializeField]
+    GameObject stoneInven;
 
     public static InGame Instance;
 
@@ -24,7 +26,6 @@ public class InGame : MonoBehaviour
     public bool haveStone = false;
 
     int lightTime = 0;
-    int noAngelTime = 0;
 
     private float playerPlusScale = 0.001f; //플레이어 움직일 때 초당 증가하는 크기
     private float playerMinusScale = 0.2f; //플레이어 발사할 때 감소하는 크기
@@ -98,9 +99,9 @@ public class InGame : MonoBehaviour
         {
             CancelInvoke("SpawnLight");
             mainLight.intensity = 1f;
+            lightTime = 0;
             isLighting = false;
         }
-        Debug.Log("에잉쯧");
         GameObject light = ObjectPool.Instance.GetObject(PoolObjectType.LIGHT);
         light.transform.position = new Vector3(Random.Range(-27.8f, 27.8f), Random.Range(-12.5f, 12.5f), 0f);
     }
@@ -147,6 +148,9 @@ public class InGame : MonoBehaviour
         player.transform.localScale = new Vector2(GameManager.Instance.playerInitScale, GameManager.Instance.playerInitScale);
         player.transform.position = new Vector2(0f, 0f);
 
+        InvenAngel(false);
+        InvenStone(false);
+
         GameManager.Instance.score = 0;
     }
 
@@ -155,6 +159,13 @@ public class InGame : MonoBehaviour
     {
         haveAngel = action;
         angelInven.SetActive(action);
+    }
+
+    //인벤토리 스톤
+    public void InvenStone(bool action)
+    {
+        haveStone = action;
+        stoneInven.SetActive(action);
     }
 
     public void AngelClick()

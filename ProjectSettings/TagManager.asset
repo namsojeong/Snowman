@@ -9,6 +9,7 @@ TagManager:
   - STONE
   - ANGEL
   - ANGELITEM
+  - STONESNOW
   layers:
   - Default
   - TransparentFX
