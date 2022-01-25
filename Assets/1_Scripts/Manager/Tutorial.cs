@@ -14,10 +14,13 @@ public class Tutorial : MonoBehaviour
 
         if (isSetting)
         {
-            panel.transform.DOMove(new Vector3(0, 0, 0), 1f);
+            panel.transform.DOMove(new Vector3(0, 0, 0), 1f)
+                .OnComplete(()=> Time.timeScale = 0);
+            
         }
         else
         {
+            Time.timeScale = 1;
             panel.transform.DOMove(new Vector3(0, 9.3f, 0), 1f);
         }
     }
@@ -62,12 +65,10 @@ public class Tutorial : MonoBehaviour
     public void OpenObj(GameObject obj)
     {
         obj.SetActive(true);
-        Time.timeScale = 0;
     }
     public void CloseObj(GameObject obj)
     {
         obj.SetActive(false);
-        Time.timeScale = 1;
     }
 
     //Á¾·á

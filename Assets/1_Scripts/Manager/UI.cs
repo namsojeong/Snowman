@@ -79,12 +79,10 @@ public class UI : MonoBehaviour
     public void OpenObj(GameObject obj)
     {
         obj.SetActive(true);
-        Time.timeScale = 0;
     }
     public void CloseObj(GameObject obj)
     {
         obj.SetActive(false);
-        Time.timeScale = 1;
     }
 
     public void SettingOn(GameObject panel)
@@ -93,10 +91,12 @@ public class UI : MonoBehaviour
 
         if(isSetting)
         {
-            panel.transform.DOMove(new Vector3(0, 0, 0), 1f);
+            panel.transform.DOMove(new Vector3(0, 0, 0), 1f)
+                .OnComplete(() => Time.timeScale = 0);
         }
         else
         {
+        Time.timeScale = 1;
             panel.transform.DOMove(new Vector3(0, 9.3f, 0), 1f);
         }
     }
@@ -133,16 +133,6 @@ public class UI : MonoBehaviour
     {
         overText.DOText("GAME OVER", 2f);
     }
-
-    //public void EffectText()
-    //{
-    //    SoundM.Instance.SoundOn("SFX", 4);
-    //    effectScoreText.transform.position = InGame.Instance.player.transform.position + new Vector3(1, 1, 0);
-    //    effectScoreText.text = string.Format($"+ {GameManager.Instance.plusScore}");
-    //    effectScoreText.DOFade(1f, 1f)
-    //        .OnComplete(()=> effectScoreText.DOFade(0f, 1f));
-        
-    //}
 
     //Á¾·á
     public void OnQuit()
