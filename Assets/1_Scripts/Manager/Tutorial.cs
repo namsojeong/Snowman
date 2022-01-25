@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 using UnityEngine.SceneManagement;
 
 public class Tutorial : MonoBehaviour
@@ -18,15 +19,19 @@ public class Tutorial : MonoBehaviour
     void TimeCheck()
     {
         time++;
-        if(time==1)
+        if (time == 1)
         {
             SoundM.Instance.SoundOn("SFX", 0);
         }
-        if(time==5)
+        if (time == 5)
+        {
+            Camera.main.DOShakePosition(0.3f);
+        }
+        if (time == 7)
         {
             SoundM.Instance.SoundOn("SFX", 1);
         }
-        if(time==9)
+        if (time == 9)
         {
             SoundM.Instance.SoundOn("SFX", 2);
         }
