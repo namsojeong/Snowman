@@ -28,7 +28,7 @@ public class InGame : MonoBehaviour
     int lightTime = 0;
     int minusTime = 0;
 
-    private float playerPlusScale = 0.005f; //플레이어 움직일 때 초당 증가하는 크기
+    private float playerPlusScale = 0.0005f; //플레이어 움직일 때 초당 증가하는 크기
     private float playerMinusScale = 0.2f; //플레이어 발사할 때 감소하는 크기
 
 
