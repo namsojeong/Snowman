@@ -26,6 +26,8 @@ public class SoundM : MonoBehaviour
     AudioClip[] bgmClip;
     [SerializeField]
     AudioClip[] sfxClip;
+    [SerializeField]
+    AudioClip[] clickClip;
 
 
     private float bgmvol = 1;
@@ -59,7 +61,7 @@ public class SoundM : MonoBehaviour
 
     public void ClickSound()
     {
-        clickSource.clip = sfxClip[5];
+        clickSource.clip = clickClip[0];
         clickSource.Play();
     }
     

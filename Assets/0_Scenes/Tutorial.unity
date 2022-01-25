@@ -1129,6 +1129,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 60f84b7e40526f343867be4b05f57a15, type: 3}
   - {fileID: 8300000, guid: 7bb67029449a5714bbb4dd2b66f096fc, type: 3}
   - {fileID: 8300000, guid: e09992fd4798c8542ba530c0e45816f3, type: 3}
+  - {fileID: 8300000, guid: e09992fd4798c8542ba530c0e45816f3, type: 3}
+  clickClip:
+  - {fileID: 8300000, guid: e3bea7a440d2a41469619d9a9ef01dee, type: 3}
 --- !u!4 &4895798381270066569
 Transform:
   m_ObjectHideFlags: 0

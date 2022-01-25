@@ -1204,6 +1204,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e09992fd4798c8542ba530c0e45816f3, type: 3}
   - {fileID: 8300000, guid: 5d14410c048aadf4a9a73e144e8860d8, type: 3}
   - {fileID: 8300000, guid: 8ab18e3420fa1504eab99154b11cde19, type: 3}
+  clickClip:
   - {fileID: 8300000, guid: e3bea7a440d2a41469619d9a9ef01dee, type: 3}
 --- !u!1 &262602811
 GameObject:
