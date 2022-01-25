@@ -6,14 +6,24 @@ using UnityEngine.SceneManagement;
 
 public class Tutorial : MonoBehaviour
 {
-
+    bool isSetting = false;
     int time = 0;
-
-    private void Update()
+    public void SettingOn(GameObject panel)
     {
+        isSetting = isSetting ? false : true;
+
+        if (isSetting)
+        {
+            panel.transform.DOMove(new Vector3(0, 0, 0), 1f);
+        }
+        else
+        {
+            panel.transform.DOMove(new Vector3(0, 9.3f, 0), 1f);
+        }
     }
     private void Start()
     {
+        isSetting = false;
         InvokeRepeating("TimeCheck", 1f, 1f);
     }
     void TimeCheck()
