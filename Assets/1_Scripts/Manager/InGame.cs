@@ -28,7 +28,7 @@ public class InGame : MonoBehaviour
     int lightTime = 0;
     int minusTime = 0;
 
-    private float playerPlusScale = 0.004f; //플레이어 움직일 때 초당 증가하는 크기
+    private float playerPlusScale = 0.0035f; //플레이어 움직일 때 초당 증가하는 크기
     private float playerMinusScale = 0.2f; //플레이어 발사할 때 감소하는 크기
 
 
@@ -88,7 +88,7 @@ public class InGame : MonoBehaviour
 
     public void TimeCheck()
     {
-        InvokeRepeating("PlayerMinusScale", 1f, 0.001f);
+        InvokeRepeating("PlayerMinusScale", 1f, 0.0005f);
         if(minusTime>=10)
         {
             minusTime = 0;
@@ -114,8 +114,8 @@ public class InGame : MonoBehaviour
         {
             if (isStone) return;
             isStone = true;
-            InvokeRepeating("SpawnStone", 0f, 3.5f);
-            InvokeRepeating("SpawnAngel", 0f, 3.5f);
+            InvokeRepeating("SpawnStone", 0f, 3f);
+            InvokeRepeating("SpawnAngel", 0f, 3f);
         }
     }
 

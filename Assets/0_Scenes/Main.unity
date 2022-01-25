@@ -3676,7 +3676,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1264082731}
         m_TargetAssemblyTypeName: InGame, Assembly-CSharp
-        m_MethodName: SpawnFoot
+        m_MethodName: OnStart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

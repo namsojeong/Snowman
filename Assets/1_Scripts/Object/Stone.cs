@@ -5,7 +5,7 @@ using UnityEngine;
 public class Stone : MonoBehaviour
 {
     int time = 0;
-    const int returnTime = 5;
+    const int returnTime = 10;
 
     private void OnEnable()
     {

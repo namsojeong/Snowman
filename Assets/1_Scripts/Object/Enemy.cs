@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
 
     Coroutine TimeC;
 
-    float enemySpeed = 0.0045f; //쫓아가는 속도
+    float enemySpeed = 0.005f; //쫓아가는 속도
     float moveDelay = 2.5f; //쫓아다니는 시간
     float scaleDelay = 1f; //크기 바뀔 때 속도
 
@@ -132,6 +132,7 @@ public class Enemy : MonoBehaviour
         if (collision.transform.tag == "STONESNOW")
         {
             GameManager.Instance.score += 20;
+            SoundM.Instance.SoundOn("COIN", 4);
             //UI.Instance.EffectText();
             collider.tag = "BULLET";
             ObjectPool.Instance.ReturnObject(PoolObjectType.BULLET, collision.gameObject);
@@ -147,6 +148,7 @@ public class Enemy : MonoBehaviour
         footPrint[damageCount - 1].SetActive(true);
         if (damageCount >= 3)
         {
+            SoundM.Instance.SoundOn("COIN", 4);
             //UI.Instance.EffectText();
             GameManager.Instance.score += 20;
             damageCount = 0;
