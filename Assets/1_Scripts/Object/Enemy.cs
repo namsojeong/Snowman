@@ -131,6 +131,7 @@ public class Enemy : MonoBehaviour
         if (collision.transform.tag == "STONESNOW")
         {
             GameManager.Instance.score += 20;
+            UI.Instance.EffectText();
             collider.tag = "BULLET";
             ObjectPool.Instance.ReturnObject(PoolObjectType.BULLET, collision.gameObject);
             damageCount = 0;
@@ -145,6 +146,7 @@ public class Enemy : MonoBehaviour
         footPrint[damageCount - 1].SetActive(true);
         if (damageCount >= 3)
         {
+            UI.Instance.EffectText();
             GameManager.Instance.score += 20;
             damageCount = 0;
             EnemyReset();

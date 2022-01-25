@@ -59,6 +59,7 @@ public class SoundM : MonoBehaviour
 
     public void ClickSound()
     {
+        clickSource.clip = sfxClip[5];
         clickSource.Play();
     }
     
@@ -85,6 +86,12 @@ public class SoundM : MonoBehaviour
         {
             bGMSource.clip = bgmClip[num];
             bGMSource.Play();
+        }
+        else if (source == "COIN")
+        {
+            clickSource.clip = sfxClip[4];
+            clickSource.Play();
+
         }
     }
 }

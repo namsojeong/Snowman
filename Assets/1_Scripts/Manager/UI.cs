@@ -15,6 +15,8 @@ public class UI : MonoBehaviour
     [SerializeField]
     Text overText = null;
     [SerializeField]
+    Text effectScoreText;
+    [SerializeField]
     Slider snowbar;
 
     [Header("GAMEOVER")]
@@ -115,6 +117,15 @@ public class UI : MonoBehaviour
     public void OverText()
     {
         overText.DOText("GAME OVER", 2f);
+    }
+
+    public void EffectText()
+    {
+        SoundM.Instance.SoundOn("SFX", 4);
+        effectScoreText.transform.position = InGame.Instance.player.transform.position + new Vector3(1, 1, 0);
+        effectScoreText.DOFade(1f, 1f)
+            .OnComplete(()=> effectScoreText.DOFade(0f, 1f));
+        
     }
 
     //Á¾·á
