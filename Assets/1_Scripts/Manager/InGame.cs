@@ -28,7 +28,7 @@ public class InGame : MonoBehaviour
     int lightTime = 0;
     int minusTime = 0;
 
-    private float playerPlusScale = 0.0005f; //플레이어 움직일 때 초당 증가하는 크기
+    private float playerPlusScale = 0.004f; //플레이어 움직일 때 초당 증가하는 크기
     private float playerMinusScale = 0.2f; //플레이어 발사할 때 감소하는 크기
 
 
@@ -95,6 +95,10 @@ public class InGame : MonoBehaviour
             CancelInvoke("PlayerMinusScale");
         }
     }
+    public void OnStart()
+    {
+            InvokeRepeating("SpawnFoot", 0f, 2.5f);
+    }
 
     //점수 확인
     void CheckScore()
@@ -155,6 +159,7 @@ public class InGame : MonoBehaviour
     public void Reset()
     {
         CancelInvoke("SpawnLight");
+        CancelInvoke("SpawnFoot");
         CancelInvoke("SpawnStone");
         CancelInvoke("SpawnAngel");
         mainLight.intensity = 1f;

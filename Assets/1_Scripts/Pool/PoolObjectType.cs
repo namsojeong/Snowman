@@ -5,5 +5,6 @@ public enum PoolObjectType
     LIGHT,
     STONE,
     ANGEL,
-    ANGELITEM
+    ANGELITEM,
+    SCORETEXT
 }

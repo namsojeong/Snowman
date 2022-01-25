@@ -65,6 +65,8 @@ public class Enemy : MonoBehaviour
 
     private void OnEnable()
     {
+        isDead = false;
+        spriteRenderer.color = new Color(0, 0, 0, 0.52f);
         TimeC = StartCoroutine(TimeCheck());
     }
 
@@ -73,7 +75,6 @@ public class Enemy : MonoBehaviour
     {
         isMoving = false;
 
-            InGame.Instance.SpawnFoot();
         gameObject.transform.localScale = new Vector3(bigScale, bigScale, 1f);
         gameObject.transform.DOScale(new Vector3(initScale, initScale, 0f), scaleDelay)
         .OnComplete(() =>
@@ -131,7 +132,7 @@ public class Enemy : MonoBehaviour
         if (collision.transform.tag == "STONESNOW")
         {
             GameManager.Instance.score += 20;
-            UI.Instance.EffectText();
+            //UI.Instance.EffectText();
             collider.tag = "BULLET";
             ObjectPool.Instance.ReturnObject(PoolObjectType.BULLET, collision.gameObject);
             damageCount = 0;
@@ -146,7 +147,7 @@ public class Enemy : MonoBehaviour
         footPrint[damageCount - 1].SetActive(true);
         if (damageCount >= 3)
         {
-            UI.Instance.EffectText();
+            //UI.Instance.EffectText();
             GameManager.Instance.score += 20;
             damageCount = 0;
             EnemyReset();

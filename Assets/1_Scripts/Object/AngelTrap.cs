@@ -8,8 +8,8 @@ public class AngelTrap : MonoBehaviour
     {
         if (collision.tag == "FOOT")
         {
-            GameManager.Instance.score += 20;
-            UI.Instance.EffectText();
+            GameManager.Instance.score += GameManager.Instance.plusScore;
+            //UI.Instance.EffectText();
             ObjectPool.Instance.ReturnObject(PoolObjectType.FOOT, collision.gameObject);
             ObjectPool.Instance.ReturnObject(PoolObjectType.ANGELITEM, gameObject);
         }

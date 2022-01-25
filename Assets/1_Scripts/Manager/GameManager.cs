@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 
     public int score; //점수
     public int highScore; //최고점수
+    public int plusScore=20; //추가점수
 
     public float playerInitScale = 0.6f; //플레이어 기본 크기
     public float moveSpeed = 8f; //플레이어 스피드

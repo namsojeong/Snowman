@@ -9,7 +9,7 @@ public class Bullet : MonoBehaviour
     Vector2 dir = Vector2.zero;
 
     //ÃÑ¾Ë ½ºÇÇµå
-    float bulletSpeed = 8f;
+    float bulletSpeed = 10f;
 
     private void OnDisable()
     {

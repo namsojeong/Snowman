@@ -14,8 +14,8 @@ public class UI : MonoBehaviour
     Text highScoreText = null;
     [SerializeField]
     Text overText = null;
-    [SerializeField]
-    Text effectScoreText;
+    //[SerializeField]
+    //Text effectScoreText;
     [SerializeField]
     Slider snowbar;
 
@@ -119,14 +119,15 @@ public class UI : MonoBehaviour
         overText.DOText("GAME OVER", 2f);
     }
 
-    public void EffectText()
-    {
-        SoundM.Instance.SoundOn("SFX", 4);
-        effectScoreText.transform.position = InGame.Instance.player.transform.position + new Vector3(1, 1, 0);
-        effectScoreText.DOFade(1f, 1f)
-            .OnComplete(()=> effectScoreText.DOFade(0f, 1f));
+    //public void EffectText()
+    //{
+    //    SoundM.Instance.SoundOn("SFX", 4);
+    //    effectScoreText.transform.position = InGame.Instance.player.transform.position + new Vector3(1, 1, 0);
+    //    effectScoreText.text = string.Format($"+ {GameManager.Instance.plusScore}");
+    //    effectScoreText.DOFade(1f, 1f)
+    //        .OnComplete(()=> effectScoreText.DOFade(0f, 1f));
         
-    }
+    //}
 
     //Á¾·á
     public void OnQuit()
