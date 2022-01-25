@@ -26,8 +26,9 @@ public class InGame : MonoBehaviour
     public bool haveStone = false;
 
     int lightTime = 0;
+    int minusTime = 0;
 
-    private float playerPlusScale = 0.001f; //플레이어 움직일 때 초당 증가하는 크기
+    private float playerPlusScale = 0.005f; //플레이어 움직일 때 초당 증가하는 크기
     private float playerMinusScale = 0.2f; //플레이어 발사할 때 감소하는 크기
 
 
@@ -72,6 +73,29 @@ public class InGame : MonoBehaviour
         }
     }
 
+    void PlayerMinusScale()
+    {
+        minusTime++;
+        playerScale -= 0.01f;
+        if (playerScale <= 0.6f)
+        {
+            playerScale = 0.6f;
+            minusTime = 0;
+            CancelInvoke("PlayerMinusScale");
+            
+        }
+    }
+
+    public void TimeCheck()
+    {
+        InvokeRepeating("PlayerMinusScale", 1f, 0.001f);
+        if(minusTime>=10)
+        {
+            minusTime = 0;
+            CancelInvoke("PlayerMinusScale");
+        }
+    }
+
     //점수 확인
     void CheckScore()
     {
@@ -86,8 +110,8 @@ public class InGame : MonoBehaviour
         {
             if (isStone) return;
             isStone = true;
-            InvokeRepeating("SpawnStone", 0f, 5f);
-            InvokeRepeating("SpawnAngel", 0f, 5f);
+            InvokeRepeating("SpawnStone", 0f, 3.5f);
+            InvokeRepeating("SpawnAngel", 0f, 3.5f);
         }
     }
 

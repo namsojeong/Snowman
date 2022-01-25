@@ -6,6 +6,32 @@ using UnityEngine.SceneManagement;
 public class Tutorial : MonoBehaviour
 {
 
+    int time = 0;
+
+    private void Update()
+    {
+    }
+    private void Start()
+    {
+        InvokeRepeating("TimeCheck", 1f, 1f);
+    }
+    void TimeCheck()
+    {
+        time++;
+        if(time==1)
+        {
+            SoundM.Instance.SoundOn("SFX", 0);
+        }
+        if(time==5)
+        {
+            SoundM.Instance.SoundOn("SFX", 1);
+        }
+        if(time==9)
+        {
+            SoundM.Instance.SoundOn("SFX", 2);
+        }
+    }
+
     private void Awake()
     {
         //해상도 고정

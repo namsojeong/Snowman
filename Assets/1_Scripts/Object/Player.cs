@@ -20,7 +20,11 @@ public class Player : MonoBehaviour
         Move();
         ChangeScale();
     }
-
+    private void OnEnable()
+    {
+        virtualJoystick.ResetHandle();
+        
+    }
     //플레이어 움직임
     void Move()
     {
@@ -53,7 +57,6 @@ public class Player : MonoBehaviour
     public void OnClickFIre()
     {
         if (InGame.Instance.snowball < 1) return;
-        SoundM.Instance.SoundOn("SFX", 2);
         InGame.Instance.SnowBall();
         GameObject bullet;
         bullet = ObjectPool.Instance.GetObject(PoolObjectType.BULLET);
@@ -61,8 +64,13 @@ public class Player : MonoBehaviour
         InGame.Instance.PlayerScale(false);
         if(InGame.Instance.haveStone)
         {
+        SoundM.Instance.SoundOn("SFX",3);
             bullet.tag = "STONESNOW";
             InGame.Instance.InvenStone(false);
+        }
+        else
+        {
+        SoundM.Instance.SoundOn("SFX", 2);
         }
     }
 

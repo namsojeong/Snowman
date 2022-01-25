@@ -5,7 +5,7 @@ using UnityEngine;
 public class Sun : MonoBehaviour
 {
     int time = 0;
-
+    bool isEnter = false;
     private void Update()
     {
         if (!InGame.Instance.isLighting)
@@ -37,8 +37,11 @@ public class Sun : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        if (isEnter) return;
         if (collision.tag == "Player")
         {
+            InGame.Instance.TimeCheck();
+            isEnter = true;
             GameManager.Instance.moveSpeed = 4f;
         }
     }
@@ -46,8 +49,6 @@ public class Sun : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            InGame.Instance.PlayerScale(false);
-            InGame.Instance.PlayerScale(false);
             GameManager.Instance.moveSpeed = 8f;
         }
         

@@ -22,6 +22,7 @@ public class Enemy : MonoBehaviour
 
     bool isMoving = true; //움직이는 중인가
     bool isDamage = false; //플레이가 데미지 받는지 아닌지
+    bool isDead = false;
     int spriteNum = 0; //빨간지 안빨간지
     int damageCount = 0;
 
@@ -58,6 +59,7 @@ public class Enemy : MonoBehaviour
     //시작과 끝의 코루틴
     private void OnDisable()
     {
+        EnemyReset();
         StopCoroutine(TimeC);
     }
 
@@ -71,11 +73,11 @@ public class Enemy : MonoBehaviour
     {
         isMoving = false;
 
+            InGame.Instance.SpawnFoot();
         gameObject.transform.localScale = new Vector3(bigScale, bigScale, 1f);
         gameObject.transform.DOScale(new Vector3(initScale, initScale, 0f), scaleDelay)
         .OnComplete(() =>
         {
-            InGame.Instance.SpawnFoot();
             Camera.main.DOShakePosition(0.8f);
             InvokeRepeating("KoongSprite", 0f, 1f);
         });
@@ -89,17 +91,19 @@ public class Enemy : MonoBehaviour
         SoundM.Instance.SoundOn("SFX", 1);
         if (spriteNum == 0)
         {
+            isDead = false;
             spriteRenderer.color = Color.red;
             collider.enabled = true;
-            isDamage = true;
             spriteNum = 1;
+            isDamage = true;
         }
         else
         {
-            spriteRenderer.color = Color.black;
             spriteNum = 0;
             CancelInvoke("KoongSprite");
+            isDead = true;
             isDamage = false;
+            spriteRenderer.color = Color.black;
         }
     }
 
@@ -113,13 +117,12 @@ public class Enemy : MonoBehaviour
             }
             EnemyReset();
             SceneM.Instance.OpenScene(2);
-
-
         }
 
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (!isDead) return;
         if (collision.transform.tag == "BULLET")
         {
             ObjectPool.Instance.ReturnObject(PoolObjectType.BULLET, collision.gameObject);
@@ -127,6 +130,7 @@ public class Enemy : MonoBehaviour
         }
         if (collision.transform.tag == "STONESNOW")
         {
+            GameManager.Instance.score += 20;
             collider.tag = "BULLET";
             ObjectPool.Instance.ReturnObject(PoolObjectType.BULLET, collision.gameObject);
             damageCount = 0;
@@ -141,6 +145,7 @@ public class Enemy : MonoBehaviour
         footPrint[damageCount - 1].SetActive(true);
         if (damageCount >= 3)
         {
+            GameManager.Instance.score += 20;
             damageCount = 0;
             EnemyReset();
             ObjectPool.Instance.ReturnObject(PoolObjectType.FOOT, gameObject);
@@ -154,12 +159,12 @@ public class Enemy : MonoBehaviour
         {
             footPrint[i].SetActive(false);
         }
-        transform.position = InGame.Instance.player.transform.position;
         isDamage = false;
+        isDead = false;
         isMoving = true;
         spriteRenderer.color = new Color(0, 0, 0, 0.52f);
         transform.localScale = new Vector2(initScale, initScale);
-        collider.enabled = false;
+        transform.position = Vector2.zero;
     }
 
 }

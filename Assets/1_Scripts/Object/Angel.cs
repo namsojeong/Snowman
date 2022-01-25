@@ -36,6 +36,15 @@ public class Angel : MonoBehaviour
             InGame.Instance.InvenAngel(true);
             ObjectPool.Instance.ReturnObject(PoolObjectType.ANGEL, gameObject);
         }
-
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            if (InGame.Instance.haveAngel) return;
+            InGame.Instance.InvenAngel(true);
+            ObjectPool.Instance.ReturnObject(PoolObjectType.ANGEL, gameObject);
+        }
+        
     }
 }

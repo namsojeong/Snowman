@@ -13,6 +13,7 @@ public class Bullet : MonoBehaviour
 
     private void OnDisable()
     {
+            isDir = false;
         gameObject.tag = "BULLET";
     }
     private void Update()
@@ -42,16 +43,6 @@ public class Bullet : MonoBehaviour
         {
             isDir = false;
             ObjectPool.Instance.ReturnObject(PoolObjectType.BULLET, gameObject);
-        }
-
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        //발에 충돌시
-        if (collision.transform.tag == "FOOT")
-        {
-            isDir = false;
         }
 
     }
