@@ -1,4 +1,8 @@
 using UnityEngine;
+using UnityEngine.UI;
+using DG.Tweening;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.Experimental.Rendering.Universal;
 
 public class InGame : MonoBehaviour
@@ -7,6 +11,8 @@ public class InGame : MonoBehaviour
     GameObject angelInven;
     [SerializeField]
     GameObject stoneInven;
+    [SerializeField]
+    GameObject plusScore;
 
     public static InGame Instance;
 
@@ -101,13 +107,13 @@ public class InGame : MonoBehaviour
     //점수 확인
     void CheckScore()
     {
-        if (GameManager.Instance.score == 6)
+        if (GameManager.Instance.score == 11)
         {
             if (isLighting) return;
             isLighting = true;
             InvokeRepeating("SpawnLight", 0f, Random.Range(5f, 30f));
         }
-        if (GameManager.Instance.score == 11)
+        if (GameManager.Instance.score == 6)
         {
             if (isStone) return;
             isStone = true;
@@ -151,6 +157,13 @@ public class InGame : MonoBehaviour
         foot.transform.position = player.transform.position;
     }
 
+    public void SpawnText()
+    {
+        //plusScore.transform.position = Camera.main.transform.position;
+        plusScore.transform.position = new Vector3(Random.Range(Camera.main.transform.position.x-1f, Camera.main.transform.position.x + 1f), Random.Range(Camera.main.transform.position.y - 1f, Camera.main.transform.position.y + 1f), 0);
+        plusScore.SetActive(true);
+    }
+
     //게임 리셋
     public void Reset()
     {
@@ -174,6 +187,8 @@ public class InGame : MonoBehaviour
 
         InvenAngel(false);
         InvenStone(false);
+
+        plusScore.SetActive(false);
 
         GameManager.Instance.score = 0;
     }

@@ -37,6 +37,15 @@ public class Enemy : MonoBehaviour
     {
         Move();
     }
+    void UpSpeed()
+    {
+        enemySpeed += 0.01f;
+        if(enemySpeed>=3f)
+        {
+            enemySpeed = 3f;
+            CancelInvoke("UpSpeed");
+        }
+    }
 
     //¿òÁ÷ÀÓ
     private void Move()
@@ -68,6 +77,7 @@ public class Enemy : MonoBehaviour
         isDead = false;
         spriteRenderer.color = new Color(0, 0, 0, 0.52f);
         TimeC = StartCoroutine(TimeCheck());
+        InvokeRepeating("UpSpeed", 1f, 0.3f);
     }
 
     //Äô!
@@ -146,7 +156,7 @@ public class Enemy : MonoBehaviour
         {
             GameManager.Instance.score += 20;
             SoundM.Instance.SoundOn("COIN", 4);
-            ObjectPool.Instance.PlusScoreUI();
+            InGame.Instance.SpawnText();
             collider.tag = "BULLET";
             ObjectPool.Instance.ReturnObject(PoolObjectType.BULLET, collision.gameObject);
             damageCount = 0;
@@ -162,7 +172,7 @@ public class Enemy : MonoBehaviour
         if (damageCount >= 3)
         {
             SoundM.Instance.SoundOn("COIN", 4);
-            ObjectPool.Instance.PlusScoreUI();
+            InGame.Instance.SpawnText();
             GameManager.Instance.score += 20;
             damageCount = 0;
             EnemyReset();
@@ -177,6 +187,7 @@ public class Enemy : MonoBehaviour
         {
             footPrint[i].SetActive(false);
         }
+        enemySpeed = 1f;
         isDamage = false;
         isDead = false;
         isMoving = true;

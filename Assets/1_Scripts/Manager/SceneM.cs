@@ -38,7 +38,7 @@ public class SceneM : MonoBehaviour
         scenePanel[num].SetActive(true);
         sceneObj[num].SetActive(true);
 
-            SoundM.Instance.SoundOn("BGM", num);
+        SoundM.Instance.SoundOn("BGM", num);
         //게임오버씬
         if (num == 2)
         {

@@ -10,12 +10,6 @@ public class ObjectPool : MonoBehaviour
     [SerializeField]
     GameObject objectPool;
 
-    [SerializeField]
-    GameObject effectScore;
-    [SerializeField]
-    GameObject plusScore;
-    [SerializeField]
-    GameObject runningCanvas;
 
     Dictionary<PoolObjectType, Queue<GameObject>> poolObjectMap = new Dictionary<PoolObjectType, Queue<GameObject>>();
 
@@ -66,30 +60,6 @@ public class ObjectPool : MonoBehaviour
         }
     }
 
-    public void PlusScoreUI()
-    {
-        GameObject plus;
-        if (effectScore.transform.childCount >= 1)
-        {
-            plus = effectScore.transform.GetChild(0).gameObject;
-        }
-        else
-        {
-            plus = Instantiate(plusScore);
-        }
-        plus.transform.SetParent(runningCanvas.transform);
-        plus.transform.position = new Vector3
-            (Random.Range(Camera.main.transform.position.x - 3f, Camera.main.transform.position.x + 3f),
-            Random.Range(Camera.main.transform.position.y - 2f, Camera.main.transform.position.y + 2f),
-            0);
-        plus.SetActive(true);
-    }
-
-    public void ReturnScoreEffect(GameObject obj)
-    {
-        obj.SetActive(false);
-        obj.transform.SetParent(effectScore.transform);
-    }
 
     //오브젝트 리턴
     public void ReturnObject(PoolObjectType type, GameObject obj)
