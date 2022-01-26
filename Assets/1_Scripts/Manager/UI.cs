@@ -14,8 +14,6 @@ public class UI : MonoBehaviour
     Text highScoreText = null;
     [SerializeField]
     Text overText = null;
-    //[SerializeField]
-    //Text effectScoreText;
     [SerializeField]
     Slider snowbar;
 
@@ -105,6 +103,8 @@ public class UI : MonoBehaviour
         scoreText.text = string.Format($"{GameManager.Instance.score}");
         highScoreText.text = string.Format($"BEST {PlayerPrefs.GetInt("HIGHSCORE",0)}");
     }
+
+    
 
     //게임오버 UI
     public void UpdateOverUI()

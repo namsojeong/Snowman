@@ -4,8 +4,6 @@ using UnityEngine.Experimental.Rendering.Universal;
 public class InGame : MonoBehaviour
 {
     [SerializeField]
-    private Light2D mainLight;
-    [SerializeField]
     GameObject angelInven;
     [SerializeField]
     GameObject stoneInven;
@@ -107,7 +105,6 @@ public class InGame : MonoBehaviour
         {
             if (isLighting) return;
             isLighting = true;
-            mainLight.intensity = 0.3f;
             InvokeRepeating("SpawnLight", 0f, Random.Range(5f, 30f));
         }
         if (GameManager.Instance.score == 11)
@@ -126,7 +123,6 @@ public class InGame : MonoBehaviour
         if (lightTime >= 5)
         {
             CancelInvoke("SpawnLight");
-            mainLight.intensity = 1f;
             lightTime = 0;
             isLighting = false;
         }
@@ -162,7 +158,6 @@ public class InGame : MonoBehaviour
         CancelInvoke("SpawnFoot");
         CancelInvoke("SpawnStone");
         CancelInvoke("SpawnAngel");
-        mainLight.intensity = 1f;
         isLighting = false;
         isStone = false;
         isAngel = false;

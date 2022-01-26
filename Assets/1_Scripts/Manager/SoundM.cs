@@ -29,9 +29,6 @@ public class SoundM : MonoBehaviour
     [SerializeField]
     AudioClip[] clickClip;
 
-    
-
-
     private float bgmvol = 0.7f;
     private float sfxvol = 0.7f;
 

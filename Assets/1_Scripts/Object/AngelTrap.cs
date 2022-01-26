@@ -9,8 +9,8 @@ public class AngelTrap : MonoBehaviour
         if (collision.tag == "FOOT")
         {
             SoundM.Instance.SoundOn("COIN", 4);
+            ObjectPool.Instance.PlusScoreUI();
             GameManager.Instance.score += GameManager.Instance.plusScore;
-            //UI.Instance.EffectText();
             ObjectPool.Instance.ReturnObject(PoolObjectType.FOOT, collision.gameObject);
             ObjectPool.Instance.ReturnObject(PoolObjectType.ANGELITEM, gameObject);
         }

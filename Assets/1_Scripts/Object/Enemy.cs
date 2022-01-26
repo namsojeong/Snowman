@@ -79,7 +79,16 @@ public class Enemy : MonoBehaviour
         gameObject.transform.DOScale(new Vector3(initScale, initScale, 0f), scaleDelay)
         .OnComplete(() =>
         {
-            Camera.main.DOShakePosition(0.8f);
+            float scale = (InGame.Instance.player.transform.position - transform.position).magnitude / 10;
+            if (scale <= 0.2f)
+            {
+                scale = 0.1f;
+            }
+            else if (scale >= 0.7f)
+            {
+                scale = 0.9f;
+            }
+            Camera.main.DOShakePosition(1 - scale);
             InvokeRepeating("KoongSprite", 0f, 1f);
         });
 
@@ -133,7 +142,7 @@ public class Enemy : MonoBehaviour
         {
             GameManager.Instance.score += 20;
             SoundM.Instance.SoundOn("COIN", 4);
-            //UI.Instance.EffectText();
+            ObjectPool.Instance.PlusScoreUI();
             collider.tag = "BULLET";
             ObjectPool.Instance.ReturnObject(PoolObjectType.BULLET, collision.gameObject);
             damageCount = 0;
@@ -149,7 +158,7 @@ public class Enemy : MonoBehaviour
         if (damageCount >= 3)
         {
             SoundM.Instance.SoundOn("COIN", 4);
-            //UI.Instance.EffectText();
+            ObjectPool.Instance.PlusScoreUI();
             GameManager.Instance.score += 20;
             damageCount = 0;
             EnemyReset();

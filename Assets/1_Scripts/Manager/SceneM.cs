@@ -12,7 +12,7 @@ public class SceneM : MonoBehaviour
     [SerializeField]
     GameObject[] scenePanel;
     [SerializeField]
-    GameObject[] sceneObj;
+    public GameObject[] sceneObj;
 
 
     public bool isRunning = false;
