@@ -80,9 +80,13 @@ public class Enemy : MonoBehaviour
         .OnComplete(() =>
         {
             float scale = (InGame.Instance.player.transform.position - transform.position).magnitude / 10;
-            if (scale <= 0.2f)
+            if (scale <= 0.4f)
             {
                 scale = 0.1f;
+            }
+            else if(scale>=0.8f)
+            {
+                scale = 10;
             }
             else if (scale >= 0.7f)
             {
