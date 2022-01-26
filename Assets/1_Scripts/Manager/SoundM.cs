@@ -29,9 +29,11 @@ public class SoundM : MonoBehaviour
     [SerializeField]
     AudioClip[] clickClip;
 
+    
 
-    private float bgmvol = 1;
-    private float sfxvol = 1;
+
+    private float bgmvol = 0.7f;
+    private float sfxvol = 0.7f;
 
     private void Awake()
     {
@@ -54,6 +56,7 @@ public class SoundM : MonoBehaviour
     public void SFXSoundSlider()
     {
         sfxSource.volume = SFXVolume.value;
+        clickSource.volume = SFXVolume.value;
 
         sfxvol = SFXVolume.value;
         PlayerPrefs.SetFloat("SFXvol", sfxvol);
@@ -67,11 +70,11 @@ public class SoundM : MonoBehaviour
     
     void SettingVol()
     {
-        bgmvol = PlayerPrefs.GetFloat("BGMvol", 1);
+        bgmvol = PlayerPrefs.GetFloat("BGMvol", 0.05f);
         BGMVolume.value = bgmvol;
         bGMSource.volume = BGMVolume.value;
 
-        sfxvol = PlayerPrefs.GetFloat("SFXvol", 1);
+        sfxvol = PlayerPrefs.GetFloat("SFXvol", 0.8f);
         SFXVolume.value = sfxvol;
         sfxSource.volume = SFXVolume.value;
     }

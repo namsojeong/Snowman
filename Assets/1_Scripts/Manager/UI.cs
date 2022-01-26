@@ -28,7 +28,6 @@ public class UI : MonoBehaviour
     [SerializeField]
     GameObject quitPanel;
 
-    bool isSetting = false;
     private void Awake()
     {
         Instance = this;
@@ -79,26 +78,12 @@ public class UI : MonoBehaviour
     public void OpenObj(GameObject obj)
     {
         obj.SetActive(true);
+        Time.timeScale = 0;
     }
     public void CloseObj(GameObject obj)
     {
-        obj.SetActive(false);
-    }
-
-    public void SettingOn(GameObject panel)
-    {
-        isSetting = isSetting ? false : true;
-
-        if(isSetting)
-        {
-            panel.transform.DOMove(new Vector3(0, 0, 0), 1f)
-                .OnComplete(() => Time.timeScale = 0);
-        }
-        else
-        {
         Time.timeScale = 1;
-            panel.transform.DOMove(new Vector3(0, 9.3f, 0), 1f);
-        }
+        obj.SetActive(false);
     }
 
     //스코어 올리기

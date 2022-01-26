@@ -6,27 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class Tutorial : MonoBehaviour
 {
-    bool isSetting = false;
     int time = 0;
-    public void SettingOn(GameObject panel)
-    {
-        isSetting = isSetting ? false : true;
-
-        if (isSetting)
-        {
-            panel.transform.DOMove(new Vector3(0, 0, 0), 1f)
-                .OnComplete(()=> Time.timeScale = 0);
-            
-        }
-        else
-        {
-            Time.timeScale = 1;
-            panel.transform.DOMove(new Vector3(0, 9.3f, 0), 1f);
-        }
-    }
     private void Start()
     {
-        isSetting = false;
         InvokeRepeating("TimeCheck", 1f, 1f);
     }
     void TimeCheck()
@@ -58,6 +40,7 @@ public class Tutorial : MonoBehaviour
     }
     public void OnClickSkipButton()
     {
+        transform.DOKill();
         SceneManager.LoadScene("Main");
     }
 
@@ -65,9 +48,11 @@ public class Tutorial : MonoBehaviour
     public void OpenObj(GameObject obj)
     {
         obj.SetActive(true);
+        Time.timeScale = 0;
     }
     public void CloseObj(GameObject obj)
     {
+        Time.timeScale = 1;
         obj.SetActive(false);
     }
 

@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
 
     Coroutine TimeC;
 
-    float enemySpeed = 0.01f; //쫓아가는 속도
+    float enemySpeed = 1f; //쫓아가는 속도
     float moveDelay = 2.5f; //쫓아다니는 시간
     float scaleDelay = 1f; //크기 바뀔 때 속도
 
@@ -46,7 +46,7 @@ public class Enemy : MonoBehaviour
         collider.enabled = false;
         isDamage = false;
         isMoving = true;
-        transform.position = Vector3.Slerp(transform.position, InGame.Instance.player.transform.position, enemySpeed);
+        transform.position = Vector3.Slerp(transform.position, InGame.Instance.player.transform.position, enemySpeed*Time.deltaTime);
     }
 
     //고정될 때까지의  시간
