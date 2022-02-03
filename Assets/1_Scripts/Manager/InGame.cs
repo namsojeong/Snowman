@@ -193,7 +193,7 @@ public class InGame : MonoBehaviour
         GameManager.Instance.score = 0;
     }
 
-    //인벤토리 에인젤
+    //인벤토리 엔젤
     public void InvenAngel(bool action)
     {
         haveAngel = action;
@@ -218,5 +218,48 @@ public class InGame : MonoBehaviour
         GameObject trap = ObjectPool.Instance.GetObject(PoolObjectType.ANGELITEM);
         trap.transform.position = player.transform.position;
     }
+
+
+    public void BulletButton(string dir)
+    {
+        if(dir == "UP")
+        {
+            targetBullet = Vector3.up;
+        }
+        else if(dir =="DOWN")
+        {
+            targetBullet = Vector3.down;
+        }
+        else if(dir=="LEFT")
+        {
+            targetBullet = Vector3.left;
+        }
+        else if(dir=="RIGHT")
+        {
+            targetBullet = Vector3.right;
+        }
+        OnClickFIre();
+    }
+    //총알 발사 버튼 
+    void OnClickFIre()
+    {
+        if (snowball < 1) return;
+        SnowBall();
+        GameObject bullet;
+        bullet = ObjectPool.Instance.GetObject(PoolObjectType.BULLET);
+        bullet.transform.position = player.transform.position;
+        PlayerScale(false);
+        if (haveStone)
+        {
+            SoundM.Instance.SoundOn("SFX", 3);
+            bullet.tag = "STONESNOW";
+            InvenStone(false);
+        }
+        else
+        {
+            SoundM.Instance.SoundOn("SFX", 2);
+        }
+    }
+
 
 }

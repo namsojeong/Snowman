@@ -53,25 +53,6 @@ public class Player : MonoBehaviour
         UI.Instance.UpdateSlider(InGame.Instance.playerScale);
     }
 
-    //총알 발사 버튼 
-    public void OnClickFIre()
-    {
-        if (InGame.Instance.snowball < 1) return;
-        InGame.Instance.SnowBall();
-        GameObject bullet;
-        bullet = ObjectPool.Instance.GetObject(PoolObjectType.BULLET);
-        bullet.transform.position = transform.position;
-        InGame.Instance.PlayerScale(false);
-        if(InGame.Instance.haveStone)
-        {
-        SoundM.Instance.SoundOn("SFX",3);
-            bullet.tag = "STONESNOW";
-            InGame.Instance.InvenStone(false);
-        }
-        else
-        {
-        SoundM.Instance.SoundOn("SFX", 2);
-        }
-    }
+    
 
 }

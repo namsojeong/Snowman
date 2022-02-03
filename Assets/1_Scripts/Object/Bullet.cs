@@ -16,15 +16,14 @@ public class Bullet : MonoBehaviour
             isDir = false;
         gameObject.tag = "BULLET";
     }
+
     private void Update()
     {
-        //방향 정해주기
         if (!isDir)
         {
-            dir = InGame.Instance.targetBullet;
-            isDir = true;
+        dir = InGame.Instance.targetBullet;
+            isDir= true;
         }
-
         BulletMove();
     }
 
