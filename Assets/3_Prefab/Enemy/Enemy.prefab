@@ -159,7 +159,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: e0178d63decfe1b4abcd2b9f6b702163, type: 3}
-  m_Color: {r: 0.01886791, g: 0.011463145, b: 0.011463145, a: 0.5294118}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.5294118}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -185,6 +185,9 @@ MonoBehaviour:
   - {fileID: 7337698663050371251}
   - {fileID: 2890584037017286896}
   - {fileID: 7969922706774972426}
+  footSprite:
+  - {fileID: 21300000, guid: e0178d63decfe1b4abcd2b9f6b702163, type: 3}
+  - {fileID: 21300000, guid: ae9c1a0ad1365094b97c5820524ee0f9, type: 3}
   spriteRenderer: {fileID: 6806256147992030139}
 --- !u!60 &2638360102173141551
 PolygonCollider2D:

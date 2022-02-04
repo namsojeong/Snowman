@@ -7,6 +7,8 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     GameObject[] footPrint;
     [SerializeField]
+    Sprite[] footSprite;
+    [SerializeField]
     SpriteRenderer spriteRenderer;
 
     Collider2D collider;
@@ -74,8 +76,6 @@ public class Enemy : MonoBehaviour
 
     private void OnEnable()
     {
-        isDead = false;
-        spriteRenderer.color = new Color(0, 0, 0, 0.52f);
         TimeC = StartCoroutine(TimeCheck());
         InvokeRepeating("UpSpeed", 1f, 0.3f);
     }
@@ -85,6 +85,8 @@ public class Enemy : MonoBehaviour
     {
         isMoving = false;
 
+        spriteRenderer.color = new Color(1, 1,1 , 1f);
+        spriteRenderer.sprite = footSprite[1];
         gameObject.transform.localScale = new Vector3(bigScale, bigScale, 1f);
         gameObject.transform.DOScale(new Vector3(initScale, initScale, 0f), scaleDelay)
         .OnComplete(() =>
@@ -127,7 +129,7 @@ public class Enemy : MonoBehaviour
             CancelInvoke("KoongSprite");
             isDead = true;
             isDamage = false;
-            spriteRenderer.color = Color.black;
+            spriteRenderer.color = Color.white;
         }
     }
 
@@ -191,7 +193,8 @@ public class Enemy : MonoBehaviour
         isDamage = false;
         isDead = false;
         isMoving = true;
-        spriteRenderer.color = new Color(0, 0, 0, 0.52f);
+        spriteRenderer.sprite = footSprite[0];
+        spriteRenderer.color = new Color(1, 1,1 , 0.52f);
         transform.localScale = new Vector2(initScale, initScale);
         transform.position = Vector2.zero;
     }
