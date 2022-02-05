@@ -188,6 +188,7 @@ MonoBehaviour:
   footSprite:
   - {fileID: 21300000, guid: e0178d63decfe1b4abcd2b9f6b702163, type: 3}
   - {fileID: 21300000, guid: ae9c1a0ad1365094b97c5820524ee0f9, type: 3}
+  - {fileID: 21300000, guid: d9eb6ae1a9d3b2e4c9fd72c0fa07b772, type: 3}
   spriteRenderer: {fileID: 6806256147992030139}
 --- !u!60 &2638360102173141551
 PolygonCollider2D:
