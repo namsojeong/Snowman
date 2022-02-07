@@ -86,7 +86,7 @@ public class Enemy : MonoBehaviour
         isMoving = false;
 
         spriteRenderer.color = new Color(1, 1,1 , 1f);
-        spriteRenderer.sprite = footSprite[Random.Range(1, 3)];
+        spriteRenderer.sprite = footSprite[Random.Range(1, footSprite.Length)];
         gameObject.transform.localScale = new Vector3(bigScale, bigScale, 1f);
         gameObject.transform.DOScale(new Vector3(initScale, initScale, 0f), scaleDelay)
         .OnComplete(() =>
