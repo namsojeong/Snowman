@@ -31,7 +31,8 @@ public class Stone : MonoBehaviour
     {
         if(collision.tag=="Player")
         {
-            InGame.Instance.InvenStone(true);
+            InGame.Instance.InvenOn("STONE", true);
+            InGame.Instance.FireColor(true);
             ObjectPool.Instance.ReturnObject(PoolObjectType.STONE, gameObject);
         }
         

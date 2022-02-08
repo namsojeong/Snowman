@@ -1,20 +1,20 @@
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.Experimental.Rendering.Universal;
 
 public class InGame : MonoBehaviour
 {
-    [SerializeField]
-    GameObject angelInven;
-    [SerializeField]
-    GameObject stoneInven;
-    [SerializeField]
-    GameObject plusScore;
-
     public static InGame Instance;
+    
+    [SerializeField]
+    Image[] invenAngel;
+    [SerializeField]
+    Image[] invenStone;
+
+    [SerializeField]
+    Button[] fireButton;
+    [SerializeField]
+    Image[] fireColor;
+
 
     public GameObject player;
 
@@ -25,6 +25,7 @@ public class InGame : MonoBehaviour
 
     bool isStone = false;
     bool isAngel = false;
+
     public bool isLighting = false;
     public bool haveAngel = false;
     public bool haveStone = false;
@@ -35,8 +36,6 @@ public class InGame : MonoBehaviour
     private float playerPlusScale = 0.0035f; //플레이어 움직일 때 초당 증가하는 크기
     private float playerMinusScale = 0.2f; //플레이어 발사할 때 감소하는 크기
 
-
-
     private void Awake()
     {
         Instance = this;
@@ -44,7 +43,14 @@ public class InGame : MonoBehaviour
         {
             Instance = GetComponent<InGame>();
         }
+
+        //총알 버튼 클릭
+        fireButton[0].onClick.AddListener(() => BulletButton("UP"));
+        fireButton[1].onClick.AddListener(() => BulletButton("DOWN"));
+        fireButton[2].onClick.AddListener(() => BulletButton("LEFT"));
+        fireButton[3].onClick.AddListener(() => BulletButton("RIGHT"));
     }
+
     private void Update()
     {
         CheckScore();
@@ -86,14 +92,14 @@ public class InGame : MonoBehaviour
             playerScale = 0.6f;
             minusTime = 0;
             CancelInvoke("PlayerMinusScale");
-            
+
         }
     }
 
     public void TimeCheck()
     {
         InvokeRepeating("PlayerMinusScale", 1f, 0.0005f);
-        if(minusTime>=10)
+        if (minusTime >= 10)
         {
             minusTime = 0;
             CancelInvoke("PlayerMinusScale");
@@ -101,7 +107,7 @@ public class InGame : MonoBehaviour
     }
     public void OnStart()
     {
-            InvokeRepeating("SpawnFoot", 0f, 2.5f);
+        InvokeRepeating("SpawnFoot", 0f, 2.5f);
     }
 
     //점수 확인
@@ -159,9 +165,8 @@ public class InGame : MonoBehaviour
 
     public void SpawnText()
     {
-        //plusScore.transform.position = Camera.main.transform.position;
-        plusScore.transform.position = new Vector3(Random.Range(Camera.main.transform.position.x-1f, Camera.main.transform.position.x + 1f), Random.Range(Camera.main.transform.position.y - 1f, Camera.main.transform.position.y + 1f), 0);
-        plusScore.SetActive(true);
+        GameObject scoreText = ObjectPool.Instance.GetObject(PoolObjectType.PlusText);
+        scoreText.transform.position = new Vector3(Random.Range(Camera.main.transform.position.x - 2f, Camera.main.transform.position.x + 2f), Random.Range(Camera.main.transform.position.y - 1.5f, Camera.main.transform.position.y + 1.5f), 0);
     }
 
     //게임 리셋
@@ -185,62 +190,63 @@ public class InGame : MonoBehaviour
         player.transform.localScale = new Vector2(GameManager.Instance.playerInitScale, GameManager.Instance.playerInitScale);
         player.transform.position = new Vector2(0f, 0f);
 
-        InvenAngel(false);
-        InvenStone(false);
-
-        plusScore.SetActive(false);
+        InvenOn("STONE", false);
+        InvenOn("ANGEL", false);
+        FireColor(false);
 
         GameManager.Instance.score = 0;
     }
 
-    //인벤토리 엔젤
-    public void InvenAngel(bool action)
-    {
-        haveAngel = action;
-        angelInven.SetActive(action);
-    }
-
     //인벤토리 스톤
-    public void InvenStone(bool action)
+    public void InvenOn(string item, bool action)
     {
-        haveStone = action;
-        stoneInven.SetActive(action);
+        if (item == "ANGEL")
+        {
+            haveAngel = action;
+            invenAngel[1].gameObject.SetActive(action);
+        }
+        else if (item == "STONE")
+        {
+            haveStone = action;
+            invenStone[1].gameObject.SetActive(action);
+        }
     }
 
+    //엔젤 버튼 클릭 시
     public void AngelClick()
     {
         if (!haveAngel)
         {
             return;
         }
-        InvenAngel(false);
+        InvenOn("ANGEL", false);
         SoundM.Instance.SoundOn("SFX", 0);
         GameObject trap = ObjectPool.Instance.GetObject(PoolObjectType.ANGELITEM);
         trap.transform.position = player.transform.position;
     }
 
 
+    //총알 발사 버튼 
     public void BulletButton(string dir)
     {
-        if(dir == "UP")
+        if (dir == "UP")
         {
             targetBullet = Vector3.up;
         }
-        else if(dir =="DOWN")
+        else if (dir == "DOWN")
         {
             targetBullet = Vector3.down;
         }
-        else if(dir=="LEFT")
+        else if (dir == "LEFT")
         {
             targetBullet = Vector3.left;
         }
-        else if(dir=="RIGHT")
+        else if (dir == "RIGHT")
         {
             targetBullet = Vector3.right;
         }
         OnClickFIre();
     }
-    //총알 발사 버튼 
     void OnClickFIre()
     {
         if (snowball < 1) return;
@@ -253,7 +259,8 @@ public class InGame : MonoBehaviour
         {
             SoundM.Instance.SoundOn("SFX", 3);
             bullet.tag = "STONESNOW";
-            InvenStone(false);
+            InvenOn("STONE", false);
+            FireColor(false);
         }
         else
         {
@@ -261,5 +268,24 @@ public class InGame : MonoBehaviour
         }
     }
 
+    //총알 버튼 색 바꾸기
+    public void FireColor(bool isStone)
+    {
+        if (isStone)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                fireColor[i].color = Color.gray;
+            }
+        }
+        else
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                fireColor[i].color = Color.white;
+            }
+
+        }
+    }
 
 }

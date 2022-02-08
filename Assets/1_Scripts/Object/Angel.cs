@@ -33,7 +33,7 @@ public class Angel : MonoBehaviour
         if (collision.tag == "Player")
         {
             if (InGame.Instance.haveAngel) return;
-            InGame.Instance.InvenAngel(true);
+            InGame.Instance.InvenOn("ANGEL", true);
             ObjectPool.Instance.ReturnObject(PoolObjectType.ANGEL, gameObject);
         }
     }
@@ -42,7 +42,7 @@ public class Angel : MonoBehaviour
         if (collision.tag == "Player")
         {
             if (InGame.Instance.haveAngel) return;
-            InGame.Instance.InvenAngel(true);
+            InGame.Instance.InvenOn("ANGEL", true);
             ObjectPool.Instance.ReturnObject(PoolObjectType.ANGEL, gameObject);
         }
         

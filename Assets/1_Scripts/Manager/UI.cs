@@ -104,8 +104,6 @@ public class UI : MonoBehaviour
         highScoreText.text = string.Format($"BEST {PlayerPrefs.GetInt("HIGHSCORE",0)}");
     }
 
-    
-
     //게임오버 UI
     public void UpdateOverUI()
     {
