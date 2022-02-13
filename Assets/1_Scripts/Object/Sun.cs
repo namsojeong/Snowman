@@ -49,6 +49,7 @@ public class Sun : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
+            SoundM.Instance.SoundOn("SFX", 6);
             GameManager.Instance.moveSpeed = 8f;
         }
         

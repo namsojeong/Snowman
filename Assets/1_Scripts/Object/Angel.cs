@@ -28,23 +28,15 @@ public class Angel : MonoBehaviour
         }
     }
 
+    //æ∆¿Ã≈€ »πµÊ
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player")
         {
             if (InGame.Instance.haveAngel) return;
+            SoundM.Instance.SoundOn("SFX", 5);
             InGame.Instance.InvenOn("ANGEL", true);
             ObjectPool.Instance.ReturnObject(PoolObjectType.ANGEL, gameObject);
         }
-    }
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.tag == "Player")
-        {
-            if (InGame.Instance.haveAngel) return;
-            InGame.Instance.InvenOn("ANGEL", true);
-            ObjectPool.Instance.ReturnObject(PoolObjectType.ANGEL, gameObject);
-        }
-        
     }
 }

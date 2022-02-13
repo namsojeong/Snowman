@@ -247,6 +247,7 @@ public class InGame : MonoBehaviour
         }
         OnClickFIre();
     }
+
     void OnClickFIre()
     {
         if (snowball < 1) return;
