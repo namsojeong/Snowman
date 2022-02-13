@@ -6,6 +6,7 @@ public class Sun : MonoBehaviour
 {
     int time = 0;
     bool isEnter = false;
+
     private void Update()
     {
         if (!InGame.Instance.isLighting)

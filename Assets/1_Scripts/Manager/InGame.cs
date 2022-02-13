@@ -7,8 +7,6 @@ public class InGame : MonoBehaviour
     
     [SerializeField]
     Image[] invenAngel;
-    [SerializeField]
-    Image[] invenStone;
 
     [SerializeField]
     Button[] fireButton;
@@ -208,7 +206,6 @@ public class InGame : MonoBehaviour
         else if (item == "STONE")
         {
             haveStone = action;
-            invenStone[1].gameObject.SetActive(action);
         }
     }
 

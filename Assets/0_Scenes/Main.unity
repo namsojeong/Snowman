@@ -6222,9 +6222,6 @@ MonoBehaviour:
   invenAngel:
   - {fileID: 161302759}
   - {fileID: 1067242780}
-  invenStone:
-  - {fileID: 1536648105}
-  - {fileID: 1628581728}
   fireButton:
   - {fileID: 1444688978}
   - {fileID: 162291754}
@@ -7356,7 +7353,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1536648103
 RectTransform:
   m_ObjectHideFlags: 0
