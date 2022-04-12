@@ -24,11 +24,9 @@ public class InGame : MonoBehaviour
     bool isStone = false;
     bool isAngel = false;
 
-    public bool isLighting = false;
     public bool haveAngel = false;
     public bool haveStone = false;
 
-    int lightTime = 0;
     int minusTime = 0;
 
     private float playerPlusScale = 0.0035f; //플레이어 움직일 때 초당 증가하는 크기
@@ -111,12 +109,6 @@ public class InGame : MonoBehaviour
     //점수 확인
     void CheckScore()
     {
-        if (GameManager.Instance.score == 11)
-        {
-            if (isLighting) return;
-            isLighting = true;
-            InvokeRepeating("SpawnLight", 0f, Random.Range(5f, 30f));
-        }
         if (GameManager.Instance.score == 6)
         {
             if (isStone) return;
@@ -124,20 +116,6 @@ public class InGame : MonoBehaviour
             InvokeRepeating("SpawnStone", 0f, 3f);
             InvokeRepeating("SpawnAngel", 0f, 3f);
         }
-    }
-
-    //빛 스폰
-    private void SpawnLight()
-    {
-        lightTime++;
-        if (lightTime >= 5)
-        {
-            CancelInvoke("SpawnLight");
-            lightTime = 0;
-            isLighting = false;
-        }
-        GameObject light = ObjectPool.Instance.GetObject(PoolObjectType.LIGHT);
-        light.transform.position = new Vector3(Random.Range(-27.8f, 27.8f), Random.Range(-12.5f, 12.5f), 0f);
     }
 
     //눈천사 아이템 스폰
@@ -170,11 +148,9 @@ public class InGame : MonoBehaviour
     //게임 리셋
     public void Reset()
     {
-        CancelInvoke("SpawnLight");
         CancelInvoke("SpawnFoot");
         CancelInvoke("SpawnStone");
         CancelInvoke("SpawnAngel");
-        isLighting = false;
         isStone = false;
         isAngel = false;
         haveStone = false;
