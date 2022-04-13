@@ -10,9 +10,9 @@ public class Player : MonoBehaviour
 
     private float playerMaxScale = 1.6f; //플레이어 최대 크기
 
-    void Start()
+    private void Start()
     {
-        transform.position = new Vector3(0, 0, 0);
+        virtualJoystick.ResetHandle();
     }
 
     private void Update()
@@ -20,11 +20,7 @@ public class Player : MonoBehaviour
         Move();
         ChangeScale();
     }
-    private void OnEnable()
-    {
-        virtualJoystick.ResetHandle();
-        
-    }
+
     //플레이어 움직임
     void Move()
     {
@@ -52,7 +48,4 @@ public class Player : MonoBehaviour
         transform.localScale = new Vector3(InGame.Instance.playerScale, InGame.Instance.playerScale, 1f);
         UI.Instance.UpdateSlider(InGame.Instance.playerScale);
     }
-
-    
-
 }

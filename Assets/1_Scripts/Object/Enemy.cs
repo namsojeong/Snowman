@@ -6,16 +6,14 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField]
     GameObject[] footPrint;
-    [SerializeField]
-    Sprite[] footSprite;
-    [SerializeField]
+
     SpriteRenderer spriteRenderer;
-
     Collider2D collider;
-
     Coroutine TimeC;
 
     float enemySpeed = 1f; //쫓아가는 속도
+    private bool isDamage;
+    private bool isDead;
     float moveDelay = 2.5f; //쫓아다니는 시간
     float scaleDelay = 1f; //크기 바뀔 때 속도
 
@@ -23,15 +21,16 @@ public class Enemy : MonoBehaviour
     const float bigScale = 5f; //커졌을 때 크기
 
     bool isMoving = true; //움직이는 중인가
-    bool isDamage = false; //플레이가 데미지 받는지 아닌지
-    bool isDead = false;
+
     int spriteNum = 0; //빨간지 안빨간지
     int damageCount = 0;
-
-    private void Start()
+    private void Awake()
     {
         collider = GetComponent<Collider2D>();
-
+        spriteRenderer= GetComponent<SpriteRenderer>();
+    }
+    private void Start()
+    {
         collider.enabled = false;
     }
 
@@ -39,10 +38,11 @@ public class Enemy : MonoBehaviour
     {
         Move();
     }
+
     void UpSpeed()
     {
         enemySpeed += 0.01f;
-        if(enemySpeed>=3f)
+        if (enemySpeed >= 3f)
         {
             enemySpeed = 3f;
             CancelInvoke("UpSpeed");
@@ -57,7 +57,7 @@ public class Enemy : MonoBehaviour
         collider.enabled = false;
         isDamage = false;
         isMoving = true;
-        transform.position = Vector3.Slerp(transform.position, InGame.Instance.player.transform.position, enemySpeed*Time.deltaTime);
+        transform.position = Vector3.Slerp(transform.position, InGame.Instance.player.transform.position, enemySpeed * Time.deltaTime);
     }
 
     //고정될 때까지의  시간
@@ -70,7 +70,6 @@ public class Enemy : MonoBehaviour
     //시작과 끝의 코루틴
     private void OnDisable()
     {
-        EnemyReset();
         StopCoroutine(TimeC);
     }
 
@@ -85,27 +84,28 @@ public class Enemy : MonoBehaviour
     {
         isMoving = false;
 
-        spriteRenderer.color = new Color(1, 1,1 , 1f);
-        spriteRenderer.sprite = footSprite[Random.Range(1, footSprite.Length)];
+        spriteRenderer.color = new Color(1, 1, 1, 1f);
+        spriteRenderer.sprite = InGame.instance.footSprite[Random.Range(1, 3)];
         gameObject.transform.localScale = new Vector3(bigScale, bigScale, 1f);
         gameObject.transform.DOScale(new Vector3(initScale, initScale, 0f), scaleDelay)
         .OnComplete(() =>
         {
-            float scale = (InGame.Instance.player.transform.position - transform.position).magnitude / 10;
-            if (scale <= 0.4f)
-            {
-                scale = 0.1f;
-            }
-            else if(scale>=0.8f)
-            {
-                scale = 10;
-            }
-            else if (scale >= 0.7f)
-            {
-                scale = 0.9f;
-            }
-            Camera.main.DOShakePosition(1 - scale);
-            InvokeRepeating("KoongSprite", 0f, 1f);
+        float scale = (InGame.Instance.player.transform.position - transform.position).magnitude / 10;
+        if (scale <= 0.4f)
+        {
+            scale = 0.1f;
+        }
+        else if (scale >= 0.8f)
+        {
+            scale = 10;
+        }
+        else if (scale >= 0.7f)
+        {
+            scale = 0.9f;
+        }
+        Camera.main.DOShakePosition(1 - scale);
+        InvokeRepeating("KoongSprite", 0f, 1f);
+        InGame.instance.SpawnFoot();
         });
 
     }
@@ -142,7 +142,7 @@ public class Enemy : MonoBehaviour
                 return;
             }
             EnemyReset();
-            SceneM.Instance.OpenScene(2);
+            SceneM.Instance.SceneChange("GameOver");
         }
 
     }
@@ -193,8 +193,8 @@ public class Enemy : MonoBehaviour
         isDamage = false;
         isDead = false;
         isMoving = true;
-        spriteRenderer.sprite = footSprite[0];
-        spriteRenderer.color = new Color(1, 1,1 , 0.52f);
+        spriteRenderer.sprite = InGame.instance.footSprite[0];
+        spriteRenderer.color = new Color(1, 1, 1, 0.52f);
         transform.localScale = new Vector2(initScale, initScale);
         transform.position = Vector2.zero;
     }

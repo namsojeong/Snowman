@@ -185,12 +185,6 @@ MonoBehaviour:
   - {fileID: 7337698663050371251}
   - {fileID: 2890584037017286896}
   - {fileID: 7969922706774972426}
-  footSprite:
-  - {fileID: 21300000, guid: e0178d63decfe1b4abcd2b9f6b702163, type: 3}
-  - {fileID: 21300000, guid: ae9c1a0ad1365094b97c5820524ee0f9, type: 3}
-  - {fileID: 21300000, guid: dac85c38346858846b76f57cf1046ce4, type: 3}
-  - {fileID: 21300000, guid: 1bf4803a9e8b5c845ae3c8e3af7e1b15, type: 3}
-  spriteRenderer: {fileID: 6806256147992030139}
 --- !u!60 &7207636590363519791
 PolygonCollider2D:
   m_ObjectHideFlags: 0

@@ -3,20 +3,39 @@ using UnityEngine.UI;
 
 public class InGame : MonoBehaviour
 {
-    public static InGame Instance;
-    
+    public static InGame instance;
+    public static InGame Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<InGame>();
+                if (instance != null)
+                {
+                    GameObject container = new GameObject("InGame");
+                    instance = container.AddComponent<InGame>();
+                }
+            }
+            return instance;
+        }
+    }
+
+    public GameObject player;
+
+    [Header("ITEM")]
     [SerializeField]
     Image[] invenAngel;
 
+    [Header("BULLET")]
     [SerializeField]
     Button[] fireButton;
     [SerializeField]
     Image[] fireColor;
-
-
-    public GameObject player;
-
     public Vector2 targetBullet = Vector2.zero;
+
+    [Header("FOOT")]
+    public Sprite[] footSprite;
 
     public float snowball = 0; //눈 개수
     public float playerScale = 0.6f;
@@ -34,11 +53,7 @@ public class InGame : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
-        if (Instance != null)
-        {
-            Instance = GetComponent<InGame>();
-        }
+        instance = this;
 
         //총알 버튼 클릭
         fireButton[0].onClick.AddListener(() => BulletButton("UP"));
@@ -46,7 +61,10 @@ public class InGame : MonoBehaviour
         fireButton[2].onClick.AddListener(() => BulletButton("LEFT"));
         fireButton[3].onClick.AddListener(() => BulletButton("RIGHT"));
     }
-
+    private void Start()
+    {
+        SpawnFoot();
+    }
     private void Update()
     {
         CheckScore();
@@ -79,6 +97,17 @@ public class InGame : MonoBehaviour
         }
     }
 
+    //스코어 올리기
+    void ScoreUp()
+    {
+        UI.Instance.UpdateUI();
+        GameManager.Instance.score++;
+        if (GameManager.Instance.score > GameManager.Instance.highScore)
+        {
+            GameManager.Instance.highScore = GameManager.Instance.score;
+        }
+    }
+
     void PlayerMinusScale()
     {
         minusTime++;
@@ -100,10 +129,6 @@ public class InGame : MonoBehaviour
             minusTime = 0;
             CancelInvoke("PlayerMinusScale");
         }
-    }
-    public void OnStart()
-    {
-        InvokeRepeating("SpawnFoot", 0f, 2.5f);
     }
 
     //점수 확인
@@ -148,7 +173,6 @@ public class InGame : MonoBehaviour
     //게임 리셋
     public void Reset()
     {
-        CancelInvoke("SpawnFoot");
         CancelInvoke("SpawnStone");
         CancelInvoke("SpawnAngel");
         isStone = false;

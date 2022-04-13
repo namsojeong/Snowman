@@ -2,7 +2,24 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
+    public static GameManager instance;
+
+    public static GameManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<GameManager>();
+                if (instance != null)
+                {
+                    GameObject container = new GameObject("GameManager");
+                    instance = container.AddComponent<GameManager>();
+                }
+            }
+            return instance;
+        }
+    }
 
     public float limitMinX = -27.8f, limitMaxX = 27.8f, limitMinY = -12.5f, limitMaxY = 12.5f; //¿µ¿ª
 
@@ -15,6 +32,6 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        instance = this;
     }
 }
