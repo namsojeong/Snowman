@@ -3865,6 +3865,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4bb638fec531cf4a9bcab4a57cd7694, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 314225645}
   invenAngel:
   - {fileID: 161302759}
   - {fileID: 1067242780}
@@ -3878,13 +3879,12 @@ MonoBehaviour:
   - {fileID: 162291755}
   - {fileID: 138454539}
   - {fileID: 1619833347}
+  targetBullet: {x: 0, y: 0}
   footSprite:
   - {fileID: 21300000, guid: e0178d63decfe1b4abcd2b9f6b702163, type: 3}
   - {fileID: 21300000, guid: ae9c1a0ad1365094b97c5820524ee0f9, type: 3}
   - {fileID: 21300000, guid: dac85c38346858846b76f57cf1046ce4, type: 3}
   - {fileID: 21300000, guid: 1bf4803a9e8b5c845ae3c8e3af7e1b15, type: 3}
-  player: {fileID: 314225645}
-  targetBullet: {x: 0, y: 0}
   snowball: 0
   playerScale: 0.6
   haveAngel: 0
@@ -8577,6 +8577,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1237603411}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: TimeStop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &5364618933616417227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8795,6 +8807,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 1179392269}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1237603411}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: TimeStart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

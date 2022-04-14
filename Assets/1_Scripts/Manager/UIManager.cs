@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// 모든 씬에 공통적으로 필요한 UI 시스템들
+/// </summary>
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
@@ -19,7 +21,7 @@ public class UIManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             quitPanel.SetActive(true);
-            Time.timeScale = 0;
+            TimeStop();
         }
     }
 
@@ -27,11 +29,9 @@ public class UIManager : MonoBehaviour
     public void OpenObj(GameObject ui)
     {
         ui.SetActive(true);
-        Time.timeScale = 0;
     }
     public void CloseObj(GameObject ui)
     {
-        Time.timeScale = 1;
         ui.SetActive(false);
     }
 
@@ -39,5 +39,15 @@ public class UIManager : MonoBehaviour
     public void OnQuit()
     {
         Application.Quit();
+    }
+
+    //시간 멈추기
+    public void TimeStop()
+    {
+        Time.timeScale = 0;
+    }
+    public void TimeStart()
+    {
+        Time.timeScale = 1;
     }
 }

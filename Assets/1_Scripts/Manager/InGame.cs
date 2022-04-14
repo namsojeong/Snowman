@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
-
+/// <summary>
+/// 인게임의 모든 시스템 (주로 적과 아이템 스폰, 플레이어 크기 조절, 총알 발사)
+/// </summary>
 public class InGame : MonoBehaviour
 {
     public static InGame instance;
@@ -55,19 +57,28 @@ public class InGame : MonoBehaviour
     {
         instance = this;
 
-        //총알 버튼 클릭
-        fireButton[0].onClick.AddListener(() => BulletButton("UP"));
-        fireButton[1].onClick.AddListener(() => BulletButton("DOWN"));
-        fireButton[2].onClick.AddListener(() => BulletButton("LEFT"));
-        fireButton[3].onClick.AddListener(() => BulletButton("RIGHT"));
+        //총알 버튼 클릭 시
+        {
+            fireButton[0].onClick.AddListener(() => BulletButton("UP"));
+            fireButton[1].onClick.AddListener(() => BulletButton("DOWN"));
+            fireButton[2].onClick.AddListener(() => BulletButton("LEFT"));
+            fireButton[3].onClick.AddListener(() => BulletButton("RIGHT"));
+        }
     }
     private void Start()
     {
-        SpawnFoot();
+        //발 스폰
+        {
+            SpawnFoot();
+        }
     }
+
     private void Update()
     {
-        CheckScore();
+        //점수 확인
+        {
+            CheckScore();
+        }
     }
 
     //총알 줄어들기
@@ -96,18 +107,6 @@ public class InGame : MonoBehaviour
             }
         }
     }
-
-    //스코어 올리기
-    void ScoreUp()
-    {
-        UI.Instance.UpdateUI();
-        GameManager.Instance.score++;
-        if (GameManager.Instance.score > GameManager.Instance.highScore)
-        {
-            GameManager.Instance.highScore = GameManager.Instance.score;
-        }
-    }
-
     void PlayerMinusScale()
     {
         minusTime++;
@@ -120,7 +119,6 @@ public class InGame : MonoBehaviour
 
         }
     }
-
     public void TimeCheck()
     {
         InvokeRepeating("PlayerMinusScale", 1f, 0.0005f);
@@ -180,8 +178,6 @@ public class InGame : MonoBehaviour
         haveStone = false;
 
         ObjectPool.Instance.ResetObj();
-        PlayerPrefs.SetInt("HIGHSCORE", GameManager.Instance.highScore);
-        PlayerPrefs.SetInt("SCORE", GameManager.Instance.score);
 
         snowball = 0;
         playerScale = GameManager.Instance.playerInitScale;
@@ -222,8 +218,7 @@ public class InGame : MonoBehaviour
         trap.transform.position = player.transform.position;
     }
 
-
-    //총알 발사 버튼 
+    //총알 발사
     public void BulletButton(string dir)
     {
         if (dir == "UP")
@@ -244,7 +239,6 @@ public class InGame : MonoBehaviour
         }
         OnClickFIre();
     }
-
     void OnClickFIre()
     {
         if (snowball < 1) return;
@@ -265,8 +259,6 @@ public class InGame : MonoBehaviour
             SoundM.Instance.SoundOn("SFX", 2);
         }
     }
-
-    //총알 버튼 색 바꾸기
     public void FireColor(bool isStone)
     {
         if (isStone)

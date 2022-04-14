@@ -1,5 +1,7 @@
 using UnityEngine;
-
+/// <summary>
+/// 총알 움직임 구현 + 초기화
+/// </summary>
 public class Bullet : MonoBehaviour
 {
     //방향을 정했나?

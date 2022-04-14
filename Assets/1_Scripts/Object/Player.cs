@@ -1,5 +1,7 @@
 using UnityEngine;
-
+/// <summary>
+/// 플레이어에 관한 스크립트
+/// </summary>
 public class Player : MonoBehaviour
 {
     [SerializeField]
@@ -46,6 +48,6 @@ public class Player : MonoBehaviour
     void ChangeScale()
     {
         transform.localScale = new Vector3(InGame.Instance.playerScale, InGame.Instance.playerScale, 1f);
-        UI.Instance.UpdateSlider(InGame.Instance.playerScale);
+        InGameUI.Instance.UpdateSlider(InGame.Instance.playerScale);
     }
 }

@@ -1,5 +1,7 @@
 using UnityEngine;
-
+/// <summary>
+/// 카메라 움직임에 관한 코드
+/// </summary>
 public class CameraMove : MonoBehaviour
 {
    public Transform target; //타겟 위치
@@ -11,13 +13,18 @@ public class CameraMove : MonoBehaviour
 
     private void Start()
     {
+        //CameraHalfWidth, CameraHalfHeight 변수 값 대입
+        {
         cameraHalfWidth = Camera.main.aspect * Camera.main.orthographicSize;
         cameraHalfHeight = Camera.main.orthographicSize;
+        }
     }
-
     private void LateUpdate()
     {
-        CameraMoving();
+        //움직임 실행
+        {
+            CameraMoving();
+        }
     }
 
     //플레이어 쫓아가기

@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+/// <summary>
+/// 사운드에 관한 모든 코드
+/// </summary>
 public class SoundM : MonoBehaviour
 {
     public static SoundM Instance = null;
@@ -38,18 +40,18 @@ public class SoundM : MonoBehaviour
         if (Instance == null)
             Instance = GetComponent<SoundM>();
 
-
         SettingVol();   
     }
 
+    //BGM 음량 조절
     public void BGMSoundSlider()
     {
         bGMSource.volume = BGMVolume.value;
-
         bgmvol = BGMVolume.value;
         PlayerPrefs.SetFloat("BGMvol", bgmvol);
     }
     
+    //SFX 음량 조절
     public void SFXSoundSlider()
     {
         sfxSource.volume = SFXVolume.value;
@@ -59,12 +61,14 @@ public class SoundM : MonoBehaviour
         PlayerPrefs.SetFloat("SFXvol", sfxvol);
     }
 
+    //클릭 사운드 출력
     public void ClickSound()
     {
         clickSource.clip = clickClip[0];
         clickSource.Play();
     }
     
+    //시작 시 전 볼륨 가져오기
     void SettingVol()
     {
         bgmvol = PlayerPrefs.GetFloat("BGMvol", 0.05f);
@@ -96,4 +100,5 @@ public class SoundM : MonoBehaviour
 
         }
     }
+
 }

@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// 눈천사 아이템 줍기 전
+/// </summary>
 public class Angel : MonoBehaviour
 {
     int time = 0;
     const int returnTime = 10;
-
 
     private void OnEnable()
     {

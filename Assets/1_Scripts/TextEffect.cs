@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// 점수를 얻었을 때 점수 효과
+/// </summary>
 public class TextEffect : MonoBehaviour
 {
-
     Coroutine FadeC;
     private void OnEnable()
     {

@@ -1,5 +1,7 @@
 using UnityEngine;
-
+/// <summary>
+/// 인게임 수치들
+/// </summary>
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
@@ -33,5 +35,13 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+
+        //점수 세팅 및 초기화
+        {
+            PlayerPrefs.SetInt("SCORE", 0);
+            score = 0;
+            highScore = PlayerPrefs.GetInt("HIGHSCORE", 0);
+        }
+
     }
 }

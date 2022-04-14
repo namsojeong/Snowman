@@ -1,10 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-
-public class UI : MonoBehaviour
+/// <summary>
+/// 인게임 속 UI 구현
+/// </summary>
+public class InGameUI : MonoBehaviour
 {
-    public static UI Instance;
+    public static InGameUI Instance;
 
     [Header("RUNNING")]
     [SerializeField]
@@ -20,16 +22,33 @@ public class UI : MonoBehaviour
     }
     private void Start()
     {
-        InvokeRepeating("ScoreUp", 1f, 1f);
+        //점수 추가 및 인게임 UI 업데이트
+        {
+            InvokeRepeating("ScoreUp", 1f, 1f);
+        }
     }
 
-    
+    //스코어 올리기
+    void ScoreUp()
+    {
+        //게임 플레이 정보 저장
+        GameManager.Instance.score++;
+        PlayerPrefs.SetInt("SCORE", GameManager.Instance.score);
+        Debug.Log(PlayerPrefs.GetInt("SCORE"));
+        if (GameManager.Instance.score > GameManager.Instance.highScore)
+        {
+            GameManager.Instance.highScore = GameManager.Instance.score;
+            Debug.Log(PlayerPrefs.GetInt("HIGHSCORE"));
+            PlayerPrefs.SetInt("HIGHSCORE", GameManager.Instance.score);
+        }
+        UpdateUI();
+    }
 
     //게이지 바 UI + 스노우볼 개수
     public void UpdateSlider(float value)
     {
         snowbar.value = value;
-        
+
         if (snowbar.value <= 0)
         {
             snowbar.value = 0;
@@ -38,7 +57,7 @@ public class UI : MonoBehaviour
         else
         {
             int count = 0;
-            if(snowbar.value<0.8f)
+            if (snowbar.value < 0.8f)
             {
                 InGame.Instance.snowball = 0;
                 return;
@@ -51,14 +70,12 @@ public class UI : MonoBehaviour
             count = 0;
         }
     }
-    
-    
 
     //인게임 스코어 UI
     public void UpdateUI()
     {
         scoreText.text = string.Format($"{GameManager.Instance.score}");
-        highScoreText.text = string.Format($"BEST {PlayerPrefs.GetInt("HIGHSCORE",0)}");
+        highScoreText.text = string.Format($"BEST {PlayerPrefs.GetInt("HIGHSCORE", 0)}");
     }
 
 }

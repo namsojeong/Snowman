@@ -1,7 +1,9 @@
 using System.Collections;
 using UnityEngine;
 using DG.Tweening;
-
+/// <summary>
+/// 발에 관한 시스템 구현 (움직임 + 플레이어의 사망 판단 + 발에 데미지 판단)
+/// </summary>
 public class Enemy : MonoBehaviour
 {
     [SerializeField]
@@ -24,10 +26,11 @@ public class Enemy : MonoBehaviour
 
     int spriteNum = 0; //빨간지 안빨간지
     int damageCount = 0;
+
     private void Awake()
     {
         collider = GetComponent<Collider2D>();
-        spriteRenderer= GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
     private void Start()
     {
@@ -36,9 +39,13 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        Move();
+        //움직임 실행
+        {
+            Move();
+        }
     }
 
+    //Speed 증가로 난이도 UP!
     void UpSpeed()
     {
         enemySpeed += 0.01f;
@@ -90,22 +97,22 @@ public class Enemy : MonoBehaviour
         gameObject.transform.DOScale(new Vector3(initScale, initScale, 0f), scaleDelay)
         .OnComplete(() =>
         {
-        float scale = (InGame.Instance.player.transform.position - transform.position).magnitude / 10;
-        if (scale <= 0.4f)
-        {
-            scale = 0.1f;
-        }
-        else if (scale >= 0.8f)
-        {
-            scale = 10;
-        }
-        else if (scale >= 0.7f)
-        {
-            scale = 0.9f;
-        }
-        Camera.main.DOShakePosition(1 - scale);
-        InvokeRepeating("KoongSprite", 0f, 1f);
-        InGame.instance.SpawnFoot();
+            float scale = (InGame.Instance.player.transform.position - transform.position).magnitude / 10;
+            if (scale <= 0.4f)
+            {
+                scale = 0.1f;
+            }
+            else if (scale >= 0.8f)
+            {
+                scale = 10;
+            }
+            else if (scale >= 0.7f)
+            {
+                scale = 0.9f;
+            }
+            Camera.main.DOShakePosition(1 - scale);
+            InvokeRepeating("KoongSprite", 0f, 1f);
+            InGame.instance.SpawnFoot();
         });
 
     }
@@ -133,6 +140,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    //Player 데미지 판단
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.transform.tag == "Player")
@@ -167,6 +175,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    //데미지 입었을 때
     void EnemyDamage()
     {
         damageCount++;

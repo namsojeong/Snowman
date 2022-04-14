@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Stone 아이템 리턴과 공격 입히기
+/// </summary>
 public class Stone : MonoBehaviour
 {
     int time = 0;

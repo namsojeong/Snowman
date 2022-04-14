@@ -1,19 +1,39 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+/// <summary>
+/// 씬에 관련된 스크립트
+/// </summary>
 public class SceneM : MonoBehaviour
 {
-    public static SceneM Instance;
-
+    public static SceneM instance;
+    public static SceneM Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<SceneM>();
+                if (instance != null)
+                {
+                    GameObject container = new GameObject("SceneM");
+                    instance = container.AddComponent<SceneM>();
+                }
+            }
+            return instance;
+        }
+    }
     private void Awake()
     {
-        Instance = this;
+        instance = this;
     }
 
+    //씬 전환
     public void SceneChange(string scene)
     {
         SceneManager.LoadScene(scene);
     }
+
+    //옛날 씬 하나로 최적화 코드
 
     //public bool isRunning = false;
     //num = 0 -> Standby
