@@ -152,27 +152,34 @@ public class Enemy : MonoBehaviour
             EnemyReset();
             SceneM.Instance.SceneChange("GameOver");
         }
-
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+
+    //아이템 데미지 판단
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!isDead) return;
-        if (collision.transform.tag == "BULLET")
+        if (collision.tag == "BULLET")
         {
             ObjectPool.Instance.ReturnObject(PoolObjectType.BULLET, collision.gameObject);
             EnemyDamage();
         }
         if (collision.transform.tag == "STONESNOW")
         {
-            GameManager.Instance.score += 20;
-            SoundM.Instance.SoundOn("COIN", 4);
-            InGame.Instance.SpawnText();
-            collider.tag = "BULLET";
+            collision.transform.tag = "BULLET";
             ObjectPool.Instance.ReturnObject(PoolObjectType.BULLET, collision.gameObject);
-            damageCount = 0;
-            EnemyReset();
-            ObjectPool.Instance.ReturnObject(PoolObjectType.FOOT, gameObject);
+            MeetStone();
         }
+    }
+
+    //Stone 아이템에 닿았을 때
+    void MeetStone()
+    {
+        GameManager.Instance.score += 20;
+        SoundM.Instance.SoundOn("COIN", 4);
+        InGame.Instance.SpawnText();
+        EnemyReset();
+            damageCount = 0;
+            ObjectPool.Instance.ReturnObject(PoolObjectType.FOOT, gameObject);
     }
 
     //데미지 입었을 때
