@@ -41,6 +41,7 @@ public class InGame : MonoBehaviour
 
     public float snowball = 0; //눈 개수
     public float playerScale = 0.6f;
+    public float moveDelay = 4f; //쫓아다니는 시간
 
     bool isStone = false;
     bool isAngel = false;
@@ -69,7 +70,7 @@ public class InGame : MonoBehaviour
     {
         //발 스폰
         {
-            SpawnFoot();
+            InvokeRepeating("SpawnFoot", 0f, moveDelay);
         }
     }
 
@@ -173,6 +174,7 @@ public class InGame : MonoBehaviour
     {
         CancelInvoke("SpawnStone");
         CancelInvoke("SpawnAngel");
+        CancelInvoke("SpawnFoot");
         isStone = false;
         isAngel = false;
         haveStone = false;

@@ -12,11 +12,24 @@ public class AngelTrap : MonoBehaviour
     {
         if (collision.tag == "FOOT")
         {
-            SoundM.Instance.SoundOn("COIN", 4);
-            InGame.Instance.SpawnText();
-            GameManager.Instance.score += GameManager.Instance.plusScore;
+            MeetFoot();
             ObjectPool.Instance.ReturnObject(PoolObjectType.FOOT, collision.gameObject);
-            ObjectPool.Instance.ReturnObject(PoolObjectType.ANGELITEM, gameObject);
         }
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.tag == "FOOT")
+        {
+            MeetFoot();
+            ObjectPool.Instance.ReturnObject(PoolObjectType.FOOT, collision.gameObject);
+        }
+    }
+
+    void MeetFoot()
+    {
+        SoundM.Instance.SoundOn("COIN", 4);
+        InGame.Instance.SpawnText();
+        GameManager.Instance.score += GameManager.Instance.plusScore;
+        ObjectPool.Instance.ReturnObject(PoolObjectType.ANGELITEM, gameObject);
     }
 }

@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour
     float enemySpeed = 1f; //쫓아가는 속도
     private bool isDamage;
     private bool isDead;
-    float moveDelay = 2.5f; //쫓아다니는 시간
+
     float scaleDelay = 1f; //크기 바뀔 때 속도
 
     const float initScale = 3f; //초기 크기
@@ -45,17 +45,6 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    //Speed 증가로 난이도 UP!
-    void UpSpeed()
-    {
-        enemySpeed += 0.01f;
-        if (enemySpeed >= 3f)
-        {
-            enemySpeed = 3f;
-            CancelInvoke("UpSpeed");
-        }
-    }
-
     //움직임
     private void Move()
     {
@@ -70,7 +59,7 @@ public class Enemy : MonoBehaviour
     //고정될 때까지의  시간
     IEnumerator TimeCheck()
     {
-        yield return new WaitForSeconds(moveDelay);
+        yield return new WaitForSeconds(4f);
         Koong();
     }
 
@@ -83,7 +72,6 @@ public class Enemy : MonoBehaviour
     private void OnEnable()
     {
         TimeC = StartCoroutine(TimeCheck());
-        InvokeRepeating("UpSpeed", 1f, 0.3f);
     }
 
     //쿵!
@@ -112,7 +100,6 @@ public class Enemy : MonoBehaviour
             }
             Camera.main.DOShakePosition(1 - scale);
             InvokeRepeating("KoongSprite", 0f, 1f);
-            InGame.instance.SpawnFoot();
         });
 
     }
@@ -178,8 +165,8 @@ public class Enemy : MonoBehaviour
         SoundM.Instance.SoundOn("COIN", 4);
         InGame.Instance.SpawnText();
         EnemyReset();
-            damageCount = 0;
-            ObjectPool.Instance.ReturnObject(PoolObjectType.FOOT, gameObject);
+        damageCount = 0;
+        ObjectPool.Instance.ReturnObject(PoolObjectType.FOOT, gameObject);
     }
 
     //데미지 입었을 때

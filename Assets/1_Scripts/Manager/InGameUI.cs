@@ -34,11 +34,9 @@ public class InGameUI : MonoBehaviour
         //게임 플레이 정보 저장
         GameManager.Instance.score++;
         PlayerPrefs.SetInt("SCORE", GameManager.Instance.score);
-        Debug.Log(PlayerPrefs.GetInt("SCORE"));
         if (GameManager.Instance.score > GameManager.Instance.highScore)
         {
             GameManager.Instance.highScore = GameManager.Instance.score;
-            Debug.Log(PlayerPrefs.GetInt("HIGHSCORE"));
             PlayerPrefs.SetInt("HIGHSCORE", GameManager.Instance.score);
         }
         UpdateUI();
