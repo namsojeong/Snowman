@@ -10,7 +10,7 @@
 잘피하며 살아남아야 한다.
 
 # 🎬 관련 영상
-https://www.youtube.com/watch?v=pa-TnkddZ7s&t=1s
+https://www.youtube.com/watch?v=Gb-Nv_GBUN4
 
 # 💼 자세한 설명
 https://namsojeong.notion.site/81741125362541b8a932700948f27527
